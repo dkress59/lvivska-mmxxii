@@ -1,0 +1,20 @@
+services:
+
+  phpmyadmin:
+    container_name: kifo-phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    depends_on:
+      - database
+    ports:
+      - '8000:80'
+    environment:
+      PMA_HOST: database
+      MYSQL_ROOT_PASS: password
+    networks:
+      - cms
+
+  wordpress:
+    # command: sh -c "/var/www/script/post-deploy.sh && exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"
+    environment:
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_FS_METHOD: direct

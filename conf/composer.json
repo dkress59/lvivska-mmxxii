@@ -1,0 +1,56 @@
+{
+  "name": "dkress/kifo-dus",
+  "description": "KiFo WP-CMS",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "dkress",
+      "email": "email@example.com"
+    }
+  ],
+  "prefer-stable": true,
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org",
+      "only": [
+        "wpackagist-plugin/*",
+        "wpackagist-theme/*"
+      ]
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "advanced-custom-fields/advanced-custom-fields-pro",
+        "version": "ACF_PRO_VERSION",
+        "type": "wordpress-plugin",
+        "dist": {
+          "type": "zip",
+          "url": "https://connect.advancedcustomfields.com/index.php?a=download&p=pro&k=ACF_PRO_LICENSE&t=ACF_PRO_VERSION"
+        },
+        "require": {
+          "ffraenz/private-composer-installer": "^5.0"
+        }
+      }
+    }
+  ],
+  "require": {
+    "advanced-custom-fields/advanced-custom-fields-pro": "ACF_PRO_VERSION",
+    "wpackagist-plugin/query-monitor": "3.8.1",
+    "wpackagist-theme/twentytwentyone": "1.4"
+  },
+  "extra": {
+    "installer-paths": {
+      "wpackagist-plugin/{$name}": [
+        "wp-content/plugins"
+      ],
+      "wpackagist-theme/{$name}": [
+        "wp-content/themes"
+      ]
+    }
+  },
+  "config": {
+    "allow-plugins": true
+  }
+}

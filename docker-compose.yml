@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+
+  database:
+    container_name: kifo-database
+    image: mariadb:latest
+    platform: linux/amd64
+    volumes:
+      - db_data:/var/lib/mysql
+      #- ./db.sql:/docker-entrypoint-initdb.d/db.sql
+    environment:
+      MYSQL_ROOT_PASS: ${MYSQL_ROOT_PASS}
+      MYSQL_DATABASE: wordpress_db
+      MYSQL_USER: ${WORDPRESS_DB_USER}
+      MYSQL_PASS: ${WORDPRESS_DB_PASS}
+    networks:
+      - cms
+
+  wordpress:
+    container_name: kifo-wordpress
+    depends_on:
+      - database
+    ports:
+      - '8080:80'
+    build:
+      context: .
+      target: wordpress
+      args:
+        ACF_PRO_LICENSE: ${ACF_PRO_LICENSE}
+    volumes:
+      - uploads:/var/www/html/wp-content/uploads
+      - ./wp-plugin:/var/www/html/wp-content/plugins/kifo-dus-plugin
+      - ./wp-theme:/var/www/html/wp-content/themes/kifo-dus-theme
+    environment:
+      WORDPRESS_DEBUG: 0
+      WORDPRESS_TABLE_PREFIX: wp_
+      WORDPRESS_DB_HOST: database
+      WORDPRESS_DB_NAME: wordpress_db
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASS: ${WORDPRESS_DB_PASS}
+      SALT_AUTH_KEY: ${SALT_AUTH_KEY}
+      SALT_SECURE_AUTH_KEY: ${SALT_SECURE_AUTH_KEY}
+      SALT_LOGGED_IN_KEY: ${SALT_LOGGED_IN_KEY}
+      SALT_NONCE_KEY: ${SALT_NONCE_KEY}
+      SALT_AUTH_SALT: ${SALT_AUTH_SALT}
+      SALT_SECURE_AUTH_SALT: ${SALT_SECURE_AUTH_SALT}
+      SALT_LOGGED_IN_SALT: ${SALT_LOGGED_IN_SALT}
+      SALT_NONCE_SALT: ${SALT_NONCE_SALT}
+
+    networks:
+      - cms
+
+networks:
+  cms:
+
+volumes:
+  db_data:
+  uploads:
