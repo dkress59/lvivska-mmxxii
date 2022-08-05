@@ -1,5 +1,5 @@
 {
-  "name": "dkress/kifo-dus",
+  "name": "dkress/lvivska-dus",
   "description": "KiFo WP-CMS",
   "minimum-stability": "stable",
   "license": "proprietary",
@@ -37,8 +37,9 @@
   ],
   "require": {
     "advanced-custom-fields/advanced-custom-fields-pro": "ACF_PRO_VERSION",
-    "wpackagist-plugin/query-monitor": "3.8.1",
-    "wpackagist-theme/twentytwentyone": "1.4"
+    "wpackagist-plugin/query-monitor": "3.9.0",
+    "wpackagist-theme/twentytwentyone": "1.6",
+    "wpackagist-theme/twentytwentytwo": "1.2"
   },
   "extra": {
     "installer-paths": {

@@ -74,11 +74,12 @@ RUN set -ex; \
 RUN composer update --no-interaction -vvv
 RUN rm composer.json composer.lock
 
-COPY ./wp-theme/ ./wp-content/themes/kifo-dus-theme/
-COPY ./wp-plugin/ ./wp-content/plugins/kifo-dus-plugin/
+COPY ./wp-theme/ ./wp-content/themes/lvivska-dus-theme/
+COPY ./wp-plugin/ ./wp-content/plugins/lvivska-dus-plugin/
 
 COPY ./conf/wp-config.php ./
 
 # run supervisord as root
 USER root
+RUN chown -R root:www-data wp-content
 
