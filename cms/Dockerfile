@@ -81,5 +81,5 @@ COPY ./conf/wp-config.php ./
 
 # run supervisord as root
 USER root
-RUN chown -R root:www-data wp-content
+RUN chown -R root:nginx wp-content
 
