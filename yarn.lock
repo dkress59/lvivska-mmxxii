@@ -755,7 +755,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.4.8":
+"autoprefixer@npm:10.4.8":
   version: 10.4.8
   resolution: "autoprefixer@npm:10.4.8"
   dependencies:
@@ -1429,7 +1429,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-typescript@npm:2.7.1, eslint-import-resolver-typescript@npm:^2.7.1":
+"eslint-import-resolver-typescript@npm:^2.7.1":
   version: 2.7.1
   resolution: "eslint-import-resolver-typescript@npm:2.7.1"
   dependencies:
@@ -1501,7 +1501,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:26.7.0, eslint-plugin-jest@npm:^26.6.0":
+"eslint-plugin-jest@npm:26.8.0":
+  version: 26.8.0
+  resolution: "eslint-plugin-jest@npm:26.8.0"
+  dependencies:
+    "@typescript-eslint/utils": ^5.10.0
+  peerDependencies:
+    "@typescript-eslint/eslint-plugin": ^5.0.0
+    eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
+  peerDependenciesMeta:
+    "@typescript-eslint/eslint-plugin":
+      optional: true
+    jest:
+      optional: true
+  checksum: 5dceef6c58422d912e29346be86940ad24602026517a92ce61ddb29814c2185609887a1ea0b6061080ca19d9ee6749549d3424102b28620088e53ec45aefa915
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-jest@npm:^26.6.0":
   version: 26.7.0
   resolution: "eslint-plugin-jest@npm:26.7.0"
   dependencies:
@@ -2790,15 +2807,14 @@ __metadata:
     "@types/react-dom": 18.0.6
     "@typescript-eslint/eslint-plugin": 5.32.0
     "@typescript-eslint/parser": 5.32.0
-    autoprefixer: ^10.4.8
+    autoprefixer: 10.4.8
     eslint: 8.21.0
     eslint-config-next: 12.2.4
     eslint-config-prettier: 8.5.0
-    eslint-import-resolver-typescript: 2.7.1
     eslint-plugin-eslint-comments: 3.2.0
     eslint-plugin-import: 2.26.0
     eslint-plugin-jam3: 0.2.3
-    eslint-plugin-jest: 26.7.0
+    eslint-plugin-jest: 26.8.0
     eslint-plugin-jsx-a11y: 6.6.1
     eslint-plugin-prettier: 4.2.1
     eslint-plugin-simple-import-sort: 7.0.0
@@ -2806,11 +2822,11 @@ __metadata:
     eslint-plugin-unused-imports: 2.0.0
     husky: 8.0.1
     next: 12.2.4
-    postcss: ^8.4.16
+    postcss: 8.4.16
     prettier: 2.7.1
     react: 18.2.0
     react-dom: 18.2.0
-    sass: ^1.54.3
+    sass: 1.54.3
     stylelint: 14.9.1
     stylelint-config-prettier-scss: 0.0.1
     stylelint-config-recess-order: 3.0.0
@@ -2818,7 +2834,7 @@ __metadata:
     stylelint-csstree-validator: 2.0.0
     stylelint-scss: 4.3.0
     stylelint-selector-no-empty: 1.0.9
-    tailwindcss: ^3.1.8
+    tailwindcss: 3.1.8
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -3624,7 +3640,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.3.11, postcss@npm:^8.4.14, postcss@npm:^8.4.16":
+"postcss@npm:8.4.16, postcss@npm:^8.3.11, postcss@npm:^8.4.14":
   version: 8.4.16
   resolution: "postcss@npm:8.4.16"
   dependencies:
@@ -3959,7 +3975,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.54.3":
+"sass@npm:1.54.3":
   version: 1.54.3
   resolution: "sass@npm:1.54.3"
   dependencies:
@@ -4492,7 +4508,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^3.1.8":
+"tailwindcss@npm:3.1.8":
   version: 3.1.8
   resolution: "tailwindcss@npm:3.1.8"
   dependencies:

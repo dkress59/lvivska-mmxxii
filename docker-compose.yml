@@ -30,8 +30,8 @@ services:
         ACF_PRO_LICENSE: ${ACF_PRO_LICENSE}
     volumes:
       - uploads:/var/www/html/wp-content/uploads
-      - ./cms/wp-plugin:/var/www/html/wp-content/plugins/lvivska-dus-plugin
-      - ./cms/wp-theme:/var/www/html/wp-content/themes/lvivska-dus-theme
+      - ./cms/wp-plugin:/var/www/html/wp-content/plugins/lvivska-mmxxii-plugin
+      - ./cms/wp-theme:/var/www/html/wp-content/themes/lvivska-mmxxii-theme
     environment:
       WORDPRESS_DEBUG: 0
       WORDPRESS_TABLE_PREFIX: wp_

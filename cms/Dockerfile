@@ -74,8 +74,8 @@ RUN set -ex; \
 RUN composer update --no-interaction -vvv
 RUN rm composer.json composer.lock
 
-COPY ./wp-theme/ ./wp-content/themes/lvivska-dus-theme/
-COPY ./wp-plugin/ ./wp-content/plugins/lvivska-dus-plugin/
+COPY ./wp-theme/ ./wp-content/themes/lvivska-mmxxii-theme/
+COPY ./wp-plugin/ ./wp-content/plugins/lvivska-mmxxii-plugin/
 
 COPY ./conf/wp-config.php ./
 

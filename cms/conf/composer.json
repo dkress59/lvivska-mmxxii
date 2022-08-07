@@ -1,5 +1,5 @@
 {
-  "name": "dkress/lvivska-dus",
+  "name": "dkress/lvivska-mmxxii",
   "description": "LVIVSKA WP-CMS",
   "minimum-stability": "stable",
   "license": "proprietary",
@@ -37,6 +37,7 @@
   ],
   "require": {
     "advanced-custom-fields/advanced-custom-fields-pro": "ACF_PRO_VERSION",
+    "wpackagist-plugin/disable-blogging": "2.1.0",
     "wpackagist-plugin/query-monitor": "3.9.0",
     "wpackagist-theme/twentytwentyone": "1.6",
     "wpackagist-theme/twentytwentytwo": "1.2"
