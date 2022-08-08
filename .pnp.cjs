@@ -68,7 +68,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["stylelint-scss", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:4.3.0"],\
             ["stylelint-selector-no-empty", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:1.0.9"],\
             ["tailwindcss", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:3.1.8"],\
-            ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"]\
+            ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"],\
+            ["wordpress-api-client", "npm:0.4.8"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -451,6 +452,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "eslint",\
             "prettier",\
             "typescript"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@tool-belt/type-predicates", [\
+        ["npm:1.2.2", {\
+          "packageLocation": "./.yarn/cache/@tool-belt-type-predicates-npm-1.2.2-6d557df32f-71546e872b.zip/node_modules/@tool-belt/type-predicates/",\
+          "packageDependencies": [\
+            ["@tool-belt/type-predicates", "npm:1.2.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -1415,6 +1425,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["parse-json", "npm:5.2.0"],\
             ["path-type", "npm:4.0.0"],\
             ["yaml", "npm:1.10.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["cross-fetch", [\
+        ["npm:3.1.5", {\
+          "packageLocation": "./.yarn/cache/cross-fetch-npm-3.1.5-e414995db9-f6b8c6ee3e.zip/node_modules/cross-fetch/",\
+          "packageDependencies": [\
+            ["cross-fetch", "npm:3.1.5"],\
+            ["node-fetch", "virtual:e414995db9c779306e687c7a7c66965e66d0cd7270f6b9fc4f00cc9772c5d50b305ab83e142e0e21dbf10968f7437cbdfcb170d05f4bde68707ac7d0082c9cca#npm:2.6.7"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3640,7 +3660,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["stylelint-scss", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:4.3.0"],\
             ["stylelint-selector-no-empty", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:1.0.9"],\
             ["tailwindcss", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:3.1.8"],\
-            ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"]\
+            ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"],\
+            ["wordpress-api-client", "npm:0.4.8"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -3979,6 +4000,29 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "react-dom",\
             "react",\
             "sass"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["node-fetch", [\
+        ["npm:2.6.7", {\
+          "packageLocation": "./.yarn/cache/node-fetch-npm-2.6.7-777aa2a6df-8d816ffd1e.zip/node_modules/node-fetch/",\
+          "packageDependencies": [\
+            ["node-fetch", "npm:2.6.7"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:e414995db9c779306e687c7a7c66965e66d0cd7270f6b9fc4f00cc9772c5d50b305ab83e142e0e21dbf10968f7437cbdfcb170d05f4bde68707ac7d0082c9cca#npm:2.6.7", {\
+          "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-10f4bc17d9/0/cache/node-fetch-npm-2.6.7-777aa2a6df-8d816ffd1e.zip/node_modules/node-fetch/",\
+          "packageDependencies": [\
+            ["node-fetch", "virtual:e414995db9c779306e687c7a7c66965e66d0cd7270f6b9fc4f00cc9772c5d50b305ab83e142e0e21dbf10968f7437cbdfcb170d05f4bde68707ac7d0082c9cca#npm:2.6.7"],\
+            ["@types/encoding", null],\
+            ["encoding", null],\
+            ["whatwg-url", "npm:5.0.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/encoding",\
+            "encoding"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5754,6 +5798,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["tr46", [\
+        ["npm:0.0.3", {\
+          "packageLocation": "./.yarn/cache/tr46-npm-0.0.3-de53018915-726321c5ea.zip/node_modules/tr46/",\
+          "packageDependencies": [\
+            ["tr46", "npm:0.0.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["trim-newlines", [\
         ["npm:3.0.1", {\
           "packageLocation": "./.yarn/cache/trim-newlines-npm-3.0.1-22f1f216de-b530f3fadf.zip/node_modules/trim-newlines/",\
@@ -5996,6 +6049,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["webidl-conversions", [\
+        ["npm:3.0.1", {\
+          "packageLocation": "./.yarn/cache/webidl-conversions-npm-3.0.1-60310f6a2b-c92a0a6ab9.zip/node_modules/webidl-conversions/",\
+          "packageDependencies": [\
+            ["webidl-conversions", "npm:3.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["whatwg-url", [\
+        ["npm:5.0.0", {\
+          "packageLocation": "./.yarn/cache/whatwg-url-npm-5.0.0-374fb45e60-b8daed4ad3.zip/node_modules/whatwg-url/",\
+          "packageDependencies": [\
+            ["whatwg-url", "npm:5.0.0"],\
+            ["tr46", "npm:0.0.3"],\
+            ["webidl-conversions", "npm:3.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["which", [\
         ["npm:1.3.1", {\
           "packageLocation": "./.yarn/cache/which-npm-1.3.1-f0ebb8bdd8-f2e185c624.zip/node_modules/which/",\
@@ -6043,6 +6116,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/word-wrap-npm-1.2.3-7fb15ab002-30b48f91fc.zip/node_modules/word-wrap/",\
           "packageDependencies": [\
             ["word-wrap", "npm:1.2.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["wordpress-api-client", [\
+        ["npm:0.4.8", {\
+          "packageLocation": "./.yarn/cache/wordpress-api-client-npm-0.4.8-08548ae8de-55e4fd9f94.zip/node_modules/wordpress-api-client/",\
+          "packageDependencies": [\
+            ["wordpress-api-client", "npm:0.4.8"],\
+            ["@tool-belt/type-predicates", "npm:1.2.2"],\
+            ["cross-fetch", "npm:3.1.5"],\
+            ["wp-types", "npm:3.60.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["wp-types", [\
+        ["npm:3.60.0", {\
+          "packageLocation": "./.yarn/cache/wp-types-npm-3.60.0-2a7213c043-1a1eadc94c.zip/node_modules/wp-types/",\
+          "packageDependencies": [\
+            ["wp-types", "npm:3.60.0"],\
+            ["typescript", "patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"]\
           ],\
           "linkType": "HARD"\
         }]\

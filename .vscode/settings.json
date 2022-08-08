@@ -2,6 +2,9 @@
   "cSpell.words": [
     "LVIVSKA"
   ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
   "search.exclude": {
     "**/.yarn": true,
     "**/.pnp.*": true
