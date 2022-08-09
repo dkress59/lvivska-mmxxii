@@ -39,6 +39,7 @@ class LvivskaPlugin {
 			"label"        => __("Products"),
 			"menu_icon"    => "dashicons-tag",
 			"public"       => true,
+			"rest_base"    => "products",
 			"show_in_rest" => true,
 			"supports"     => [
 				"editor",
@@ -52,13 +53,15 @@ class LvivskaPlugin {
 
 	public function register_store_settings_page() {
 		if (function_exists('acf_add_options_sub_page')) {
-			acf_add_options_sub_page([
-										 //'capability'  => 'publish_products',
-										 'menu_title'  => __('Store Settings'),
-										 'page_title'  => __('LVIVSKA Store Settings'),
-										 //'parent_slug' => 'edit.php?post_type=warning-product',
-										 'parent_slug' => 'index.php',
-									 ]);
+			acf_add_options_sub_page(
+				[
+					//'capability'  => 'publish_products',
+					'menu_title'  => __('Store Settings'),
+					'page_title'  => __('LVIVSKA Store Settings'),
+					//'parent_slug' => 'edit.php?post_type=warning-product',
+					'parent_slug' => 'index.php',
+				]
+			);
 		}
 	}
 
@@ -253,7 +256,8 @@ class LvivskaPlugin {
 					'active'                => true,
 					'description'           => '',
 					'show_in_rest'          => 1,
-				]);
+				]
+			);
 
 			acf_add_local_field_group(
 				[
@@ -298,7 +302,8 @@ class LvivskaPlugin {
 					'active'                => true,
 					'description'           => '',
 					'show_in_rest'          => 1,
-				]);
+				]
+			);
 
 			acf_add_local_field_group(
 				[
@@ -345,7 +350,8 @@ class LvivskaPlugin {
 					'active'                => true,
 					'description'           => '',
 					'show_in_rest'          => 1,
-				]);
+				]
+			);
 
 		endif;
 	}

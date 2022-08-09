@@ -1,10 +1,16 @@
-import WpApiClient, { WPPage } from 'wordpress-api-client'
+import { WPPage } from 'wordpress-api-client'
 
-const cmsClient = new WpApiClient('http://localhost:8080')
+import { CmsClient } from '../util/cms-client'
+
+const cmsClient = new CmsClient('http://localhost:8080')
+
+async function getAllPages() {
+	return await cmsClient.page().dangerouslyFindAll()
+}
 
 export async function getStaticPaths() {
-	const wpPages = (await cmsClient.page().find()) as WPPage[]
-	const paths = wpPages.filter(Boolean).map(({ slug }) => ({
+	const wpPages = await getAllPages()
+	const paths = wpPages.map(({ slug }) => ({
 		params: {
 			slug,
 		},
@@ -17,8 +23,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
-	const pages = (await cmsClient.page().find()) as WPPage[]
-	const page = pages.filter(Boolean).find(page => page.slug === params.slug)
+	const pages = await getAllPages()
+	const page = pages.find(page => page.slug === params.slug)
 
 	return {
 		props: {
@@ -33,6 +39,7 @@ const WpPage = ({ page }: { page: WPPage }) => {
 	return (
 		<>
 			<h1>Page: {page.title.rendered}</h1>
+			<br />
 			<div dangerouslySetInnerHTML={{ __html: page.content.rendered }} />
 		</>
 	)
