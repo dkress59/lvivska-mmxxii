@@ -1,7 +1,7 @@
 import { CmsClient } from '../../util/cms-client'
 import { WPProduct } from '../../util/types'
 
-const cmsClient = new CmsClient('http://localhost:8080')
+const cmsClient = new CmsClient()
 
 async function getAllProducts() {
 	return await cmsClient.product().dangerouslyFindAll()

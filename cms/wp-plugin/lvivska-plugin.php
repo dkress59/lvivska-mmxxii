@@ -5,7 +5,7 @@
  * Author URI: https://www.damiankress.de/
  * Description:
  * Version: 0.0.1
- * Requires at least: 6.0
+ * Requires at least: 5.9.3
  * Tested up to: 6.0
  * Requires PHP: 8.0
  * License: GNU General Public License v2 or later
@@ -24,6 +24,7 @@ class LvivskaPlugin {
 		self::$instance = $this;
 		add_action('init', [$this, 'init']);
 		add_action('acf/init', [$this, 'register_store_settings_page']);
+		add_action('after_setup_theme', [$this, 'theme_setup']);
 	}
 
 	public static function instance(): self {
@@ -32,8 +33,6 @@ class LvivskaPlugin {
 	}
 
 	public function init() {
-		add_theme_support('post-thumbnails', ['page', 'product']);
-
 		register_post_type('product', [
 			"hierarchical" => false,
 			"label"        => __("Products"),
@@ -49,6 +48,10 @@ class LvivskaPlugin {
 				"title",
 			],
 		]);
+	}
+
+	public function theme_setup() {
+		add_theme_support('post-thumbnails', ['page', 'product']);
 	}
 
 	public function register_store_settings_page() {

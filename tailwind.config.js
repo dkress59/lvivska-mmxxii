@@ -10,6 +10,10 @@ module.exports = {
         black: '#100c08'
       }
     },
+		fontFamily: {
+			sans: ['interstate', 'sans-serif'],
+			title: ['operetta-32', 'serif'],
+		},
   },
   plugins: [],
 }
