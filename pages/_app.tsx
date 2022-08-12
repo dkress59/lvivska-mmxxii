@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
+import { Favicons } from '../components/favicons'
 import { Navigation } from '../components/navigation'
 import { CartContextProvider } from '../util/context'
 import { getActiveClassName } from '../util/util'
@@ -24,6 +25,7 @@ function NextApp({ Component, pageProps }: AppProps) {
 						__html: `:root { --initialMainHeight: ${initialMainHeight}px; }`,
 					}}
 				/>
+				<Favicons />
 			</Head>
 			<CartContextProvider>
 				<Navigation setInitialMainHeight={setInitialMainHeight} />
