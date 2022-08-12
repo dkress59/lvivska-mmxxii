@@ -1,5 +1,6 @@
+import { WpProduct } from '../../components/wp-product'
 import { CmsClient } from '../../util/cms-client'
-import { WPProduct } from '../../util/types'
+import { getAllImages } from '../../util/util'
 
 const cmsClient = new CmsClient()
 
@@ -22,29 +23,18 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
-	const products = await getAllProducts()
+	const [media, products] = await Promise.all([
+		getAllImages(),
+		getAllProducts(),
+	])
 	const product = products.find(product => product.slug === params.slug)
 
 	return {
 		props: {
+			media,
 			product,
 		},
 	}
-}
-
-const WpProduct = ({ product }: { product: WPProduct }) => {
-	//const router = useRouter()
-
-	return (
-		<>
-			<h1>{product.title.rendered}</h1>
-			<h2>{product.acf.subtitle}</h2>
-			<br />
-			<div
-				dangerouslySetInnerHTML={{ __html: product.content.rendered }}
-			/>
-		</>
-	)
 }
 
 export default WpProduct

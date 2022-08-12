@@ -48,6 +48,11 @@ class LvivskaPlugin {
 				"title",
 			],
 		]);
+		register_nav_menus(
+			[
+				'main-menu' => __('Main Menu'),
+			]
+		);
 	}
 
 	public function theme_setup() {

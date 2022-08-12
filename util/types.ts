@@ -82,3 +82,14 @@ export interface CustomWPMedia extends WPMedia {
 }
 
 export type StateSetter<T> = Dispatch<SetStateAction<T>>
+
+export interface PageProps {
+	media: CustomWPMedia[]
+	page: WPPage
+	products: WPProduct[]
+}
+
+export interface ProductProps {
+	media: CustomWPMedia[]
+	product: WPProduct
+}
