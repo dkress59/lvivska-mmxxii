@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { Fragment } from 'react'
 
 import { useCart } from '../util/hooks'
@@ -6,6 +7,7 @@ import {
 	cartItemsToNetto,
 	cartItemsToTax,
 	cartItemsToTotal,
+	createPaymentIntent,
 } from '../util/util'
 
 function getImageForProduct({
@@ -19,7 +21,19 @@ function getImageForProduct({
 }
 
 export function CartPage({ media, products }: CartProps) {
-	const { cartItems } = useCart(products)
+	const { cartItems, setClientSecret } = useCart(products)
+	const router = useRouter()
+
+	function onProceedToCheckout() {
+		;(async () => {
+			try {
+				setClientSecret(await createPaymentIntent(cartItems))
+				await router.push('/checkout')
+			} catch (exception) {
+				console.error(exception)
+			}
+		})()
+	}
 
 	if (!cartItems.length)
 		return (
@@ -55,6 +69,7 @@ export function CartPage({ media, products }: CartProps) {
 					)
 				})}
 			</section>
+			<button onClick={onProceedToCheckout}>Proceed to checkout</button>
 			<section id="summary">
 				<aside>
 					<p>Netto:</p>
@@ -62,7 +77,7 @@ export function CartPage({ media, products }: CartProps) {
 					<p>MwSt.:</p>
 					<p>{cartItemsToTax(cartItems, 19)}€</p>
 					<p>Total:</p>
-					<p>{cartItemsToTotal(cartItems)}€</p>
+					<p>{cartItemsToTotal(cartItems).toFixed(2)}€</p>
 				</aside>
 			</section>
 		</article>

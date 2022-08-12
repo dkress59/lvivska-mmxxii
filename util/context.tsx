@@ -16,11 +16,15 @@ import { CartItem, StateSetter } from './types'
 interface CartContextDefinition {
 	cartItems: CartItem[]
 	setCartItems: StateSetter<CartItem[]>
+	clientSecret: string
+	setClientSecret: StateSetter<string>
 }
 
 export const CartContext = React.createContext<CartContextDefinition>({
 	cartItems: [],
 	setCartItems: () => null,
+	clientSecret: '',
+	setClientSecret: () => null,
 })
 
 export function CartContextProvider({ children }: PropsWithChildren) {
@@ -28,9 +32,12 @@ export function CartContextProvider({ children }: PropsWithChildren) {
 		//getCartFromLocalStorage()
 		[],
 	)
+	const [clientSecret, setClientSecret] = useState('')
 
 	return (
-		<CartContext.Provider value={{ cartItems, setCartItems }}>
+		<CartContext.Provider
+			value={{ cartItems, setCartItems, clientSecret, setClientSecret }}
+		>
 			{children}
 		</CartContext.Provider>
 	)

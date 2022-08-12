@@ -5,7 +5,8 @@ import { CartContext } from './context'
 import { WPProduct } from './types'
 
 export function useCart(products: WPProduct[]) {
-	const { cartItems, setCartItems } = useContext(CartContext)
+	const { cartItems, setCartItems, clientSecret, setClientSecret } =
+		useContext(CartContext)
 
 	function addToCart(sku: string, quantity: number) {
 		const alreadyInCart =
@@ -52,5 +53,11 @@ export function useCart(products: WPProduct[]) {
 		localStorage.setItem(LOCAL_STORAGE.CART, JSON.stringify(cartItems))
 	}, [cartItems])
 
-	return { cartItems, addToCart, removeFromCart }
+	return {
+		cartItems,
+		addToCart,
+		removeFromCart,
+		clientSecret,
+		setClientSecret,
+	}
 }

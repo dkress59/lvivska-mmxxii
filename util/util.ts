@@ -44,13 +44,11 @@ function nettoFromTotal(total: number, taxPercent: number) {
 }
 
 export const cartItemsToTotal = (cartItems: CartItem[]) =>
-	cartItems
-		.reduce(
-			(previous: number, current: CartItem) =>
-				previous + current.quantity * current.product.acf.price,
-			0,
-		)
-		.toFixed(2)
+	cartItems.reduce(
+		(previous: number, current: CartItem) =>
+			previous + current.quantity * current.product.acf.price,
+		0,
+	)
 
 export const cartItemsToTax = (cartItems: CartItem[], tax: number) =>
 	cartItems.reduce(
@@ -67,3 +65,14 @@ export const cartItemsToNetto = (cartItems: CartItem[], tax: number) =>
 			current.quantity * nettoFromTotal(current.product.acf.price, tax),
 		0,
 	)
+
+export async function createPaymentIntent(cartItems: CartItem[]) {
+	const response = await fetch('/api/create-payment-intent', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ cartItems }),
+	})
+
+	const data = <{ clientSecret: string }>await response.json()
+	return data.clientSecret
+}

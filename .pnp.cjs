@@ -33,6 +33,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
+            ["@stripe/react-stripe-js", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:1.10.0"],\
+            ["@stripe/stripe-js", "npm:1.35.0"],\
             ["@tool-belt/eslint-config", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:1.2.3"],\
             ["@types/node", "npm:16.11.47"],\
             ["@types/prettier", "npm:2.7.0"],\
@@ -60,6 +62,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:18.2.0"],\
             ["sass", "npm:1.54.4"],\
+            ["stripe", "npm:10.2.0"],\
             ["stylelint", "npm:14.10.0"],\
             ["stylelint-config-prettier-scss", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:0.0.1"],\
             ["stylelint-config-recess-order", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:3.0.0"],\
@@ -407,6 +410,46 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@stripe/react-stripe-js", [\
+        ["npm:1.10.0", {\
+          "packageLocation": "./.yarn/cache/@stripe-react-stripe-js-npm-1.10.0-6018d6df8f-718085cedc.zip/node_modules/@stripe/react-stripe-js/",\
+          "packageDependencies": [\
+            ["@stripe/react-stripe-js", "npm:1.10.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:1.10.0", {\
+          "packageLocation": "./.yarn/__virtual__/@stripe-react-stripe-js-virtual-699e3bd961/0/cache/@stripe-react-stripe-js-npm-1.10.0-6018d6df8f-718085cedc.zip/node_modules/@stripe/react-stripe-js/",\
+          "packageDependencies": [\
+            ["@stripe/react-stripe-js", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:1.10.0"],\
+            ["@stripe/stripe-js", "npm:1.35.0"],\
+            ["@types/react", "npm:18.0.17"],\
+            ["@types/react-dom", "npm:18.0.6"],\
+            ["@types/stripe__stripe-js", null],\
+            ["prop-types", "npm:15.8.1"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@stripe/stripe-js",\
+            "@types/react-dom",\
+            "@types/react",\
+            "@types/stripe__stripe-js",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@stripe/stripe-js", [\
+        ["npm:1.35.0", {\
+          "packageLocation": "./.yarn/cache/@stripe-stripe-js-npm-1.35.0-44bfad7f6e-18322cbb37.zip/node_modules/@stripe/stripe-js/",\
+          "packageDependencies": [\
+            ["@stripe/stripe-js", "npm:1.35.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@swc/helpers", [\
         ["npm:0.4.3", {\
           "packageLocation": "./.yarn/cache/@swc-helpers-npm-0.4.3-5d4bea11d2-5c2f173e95.zip/node_modules/@swc/helpers/",\
@@ -506,6 +549,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-node-npm-16.11.47-441c4db84b-2681100075.zip/node_modules/@types/node/",\
           "packageDependencies": [\
             ["@types/node", "npm:16.11.47"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:18.7.2", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-18.7.2-8575dab8c2-422cf95dea.zip/node_modules/@types/node/",\
+          "packageDependencies": [\
+            ["@types/node", "npm:18.7.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3844,6 +3894,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["lvivska-mmxxii", "workspace:."],\
+            ["@stripe/react-stripe-js", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:1.10.0"],\
+            ["@stripe/stripe-js", "npm:1.35.0"],\
             ["@tool-belt/eslint-config", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:1.2.3"],\
             ["@types/node", "npm:16.11.47"],\
             ["@types/prettier", "npm:2.7.0"],\
@@ -3871,6 +3923,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:18.2.0"],\
             ["sass", "npm:1.54.4"],\
+            ["stripe", "npm:10.2.0"],\
             ["stylelint", "npm:14.10.0"],\
             ["stylelint-config-prettier-scss", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:0.0.1"],\
             ["stylelint-config-recess-order", "virtual:279935fce5c9911d447b0d768128ddd8c49f3c1d843dce9186ba306795b2f64afcf3b3d10a193c84d3a20035e214c41218b20a8640e340cbf5051d2ea6815cf1#npm:3.0.0"],\
@@ -4947,6 +5000,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["qs", [\
+        ["npm:6.11.0", {\
+          "packageLocation": "./.yarn/cache/qs-npm-6.11.0-caf1bc9dea-6e1f29dd53.zip/node_modules/qs/",\
+          "packageDependencies": [\
+            ["qs", "npm:6.11.0"],\
+            ["side-channel", "npm:1.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["queue-microtask", [\
         ["npm:1.2.3", {\
           "packageLocation": "./.yarn/cache/queue-microtask-npm-1.2.3-fcc98e4e2d-b676f8c040.zip/node_modules/queue-microtask/",\
@@ -5529,6 +5592,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/strip-json-comments-npm-3.1.1-dcb2324823-492f73e272.zip/node_modules/strip-json-comments/",\
           "packageDependencies": [\
             ["strip-json-comments", "npm:3.1.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["stripe", [\
+        ["npm:10.2.0", {\
+          "packageLocation": "./.yarn/cache/stripe-npm-10.2.0-29463a2e40-56e4f44108.zip/node_modules/stripe/",\
+          "packageDependencies": [\
+            ["stripe", "npm:10.2.0"],\
+            ["@types/node", "npm:18.7.2"],\
+            ["qs", "npm:6.11.0"]\
           ],\
           "linkType": "HARD"\
         }]\
