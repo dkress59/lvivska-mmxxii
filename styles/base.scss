@@ -44,6 +44,27 @@
 					}
 				}
 
+				#summary {
+					@apply w-full flex justify-end pr-8;
+
+					aside {
+						@apply w-max grid grid-cols-2 gap-x-2;
+					}
+
+					p {
+						@apply text-sm;
+
+						&:nth-child(even) {
+							@apply text-right tabular-nums;
+						}
+
+						&:last-child,
+						&:nth-last-child(2) {
+							@apply font-semibold;
+						}
+					}
+				}
+
 				&.empty {
 					@apply min-h-0;
 

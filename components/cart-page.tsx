@@ -2,6 +2,11 @@ import { Fragment } from 'react'
 
 import { useCart } from '../util/hooks'
 import { CartProps, CustomWPMedia, WPProduct } from '../util/types'
+import {
+	cartItemsToNetto,
+	cartItemsToTax,
+	cartItemsToTotal,
+} from '../util/util'
 
 function getImageForProduct({
 	media,
@@ -49,6 +54,16 @@ export function CartPage({ media, products }: CartProps) {
 						</Fragment>
 					)
 				})}
+			</section>
+			<section id="summary">
+				<aside>
+					<p>Netto:</p>
+					<p>{cartItemsToNetto(cartItems, 19)}€</p>
+					<p>MwSt.:</p>
+					<p>{cartItemsToTax(cartItems, 19)}€</p>
+					<p>Total:</p>
+					<p>{cartItemsToTotal(cartItems)}€</p>
+				</aside>
 			</section>
 		</article>
 	)

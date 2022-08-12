@@ -1,5 +1,5 @@
 import { CmsClient } from './cms-client'
-import { CustomWPMedia } from './types'
+import { CartItem, CustomWPMedia } from './types'
 
 const cmsClient = new CmsClient()
 
@@ -28,3 +28,42 @@ export function getActiveClassName({
 	if (asPath.startsWith('/' + route + '/')) return 'active'
 	return undefined
 }
+
+/** rounded UP */
+function taxFromTotal(total: number, taxPercent: number) {
+	const tax = (total / (100 + taxPercent)) * taxPercent
+	const times100 = Math.ceil(tax * 100)
+	return times100 / 100
+}
+
+/** rounded DOWN */
+function nettoFromTotal(total: number, taxPercent: number) {
+	const tax = (total / (100 + taxPercent)) * 100
+	const times100 = Math.floor(tax * 100)
+	return times100 / 100
+}
+
+export const cartItemsToTotal = (cartItems: CartItem[]) =>
+	cartItems
+		.reduce(
+			(previous: number, current: CartItem) =>
+				previous + current.quantity * current.product.acf.price,
+			0,
+		)
+		.toFixed(2)
+
+export const cartItemsToTax = (cartItems: CartItem[], tax: number) =>
+	cartItems.reduce(
+		(previous: number, current: CartItem) =>
+			previous +
+			current.quantity * taxFromTotal(current.product.acf.price, tax),
+		0,
+	)
+
+export const cartItemsToNetto = (cartItems: CartItem[], tax: number) =>
+	cartItems.reduce(
+		(previous: number, current: CartItem) =>
+			previous +
+			current.quantity * nettoFromTotal(current.product.acf.price, tax),
+		0,
+	)
