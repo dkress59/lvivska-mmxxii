@@ -21,7 +21,7 @@ export function WpPage({ media, page }: PageProps) {
 					/>
 				</figure>
 			)}
-			<article>
+			<article className="page">
 				<h1>{page.title.rendered}</h1>
 				<br />
 				<div

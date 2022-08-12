@@ -92,4 +92,10 @@ export interface PageProps {
 export interface ProductProps {
 	media: CustomWPMedia[]
 	product: WPProduct
+	products: WPProduct[]
+}
+
+export interface CartItem {
+	product: WPProduct
+	quantity: number
 }

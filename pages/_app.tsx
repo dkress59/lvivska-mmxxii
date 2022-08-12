@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import { Navigation } from '../components/navigation'
+import { CartContextProvider } from '../util/context'
 import { getActiveClassName } from '../util/util'
 
 function NextApp({ Component, pageProps }: AppProps) {
@@ -24,19 +25,24 @@ function NextApp({ Component, pageProps }: AppProps) {
 					}}
 				/>
 			</Head>
-			<Navigation setInitialMainHeight={setInitialMainHeight} />
-			<main>
-				<Component {...pageProps} />
-			</main>
-			<footer>
-				<Link
-					href="legal"
-					className={getActiveClassName({ asPath, route: 'legal' })}
-					passHref
-				>
-					Impressum &amp; Datenschutz
-				</Link>
-			</footer>
+			<CartContextProvider>
+				<Navigation setInitialMainHeight={setInitialMainHeight} />
+				<main>
+					<Component {...pageProps} />
+				</main>
+				<footer>
+					<Link
+						href="legal"
+						className={getActiveClassName({
+							asPath,
+							route: 'legal',
+						})}
+						passHref
+					>
+						Impressum &amp; Datenschutz
+					</Link>
+				</footer>
+			</CartContextProvider>
 		</>
 	)
 }

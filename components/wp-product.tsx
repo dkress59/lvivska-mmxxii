@@ -1,10 +1,30 @@
 import Image from 'next/image'
 
+import { useCart } from '../util/hooks'
 import { ProductProps } from '../util/types'
 
-export function WpProduct({ media, product }: ProductProps) {
+export function WpProduct({
+	media,
+	product: {
+		content,
+		featured_media,
+		title,
+		acf: {
+			capacity,
+			dimensions: { depth, height, width },
+			price,
+			stock,
+			subtitle,
+			weight,
+			sku,
+		},
+	},
+	products,
+}: ProductProps) {
+	const { addToCart, removeFromCart } = useCart(products)
+
 	const featuredMedia = media.find(
-		attachment => attachment.id === product.featured_media,
+		attachment => attachment.id === featured_media,
 	)
 
 	return (
@@ -21,15 +41,32 @@ export function WpProduct({ media, product }: ProductProps) {
 					/>
 				</figure>
 			)}
-			<article>
-				<h1>{product.title.rendered}</h1>
-				<h2>{product.acf.subtitle}</h2>
+			<article className="product">
+				<h1>{title.rendered}</h1>
+				<h2>{subtitle}</h2>
 				<br />
-				<div
+				<section className="product-info">
+					<p>Füllmenge: {capacity} liter</p>
+					<p>
+						BxHxT: {width}x{height}x{depth}cm
+					</p>
+					<p>
+						Preis: {price}€ <small>{price / capacity}€/liter</small>
+					</p>
+					<p>Auf Lager: {stock}</p>
+					<p>Gewicht: {weight}kg</p>
+				</section>
+				<section
 					dangerouslySetInnerHTML={{
-						__html: product.content.rendered,
+						__html: content.rendered,
 					}}
 				/>
+				<br />
+				<br />
+				<button onClick={() => addToCart(sku, 1)}>+1</button>
+				<br />
+				<br />
+				<button onClick={() => removeFromCart(sku, 1)}>-1</button>
 			</article>
 		</>
 	)

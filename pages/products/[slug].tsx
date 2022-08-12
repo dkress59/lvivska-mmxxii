@@ -33,6 +33,7 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
 		props: {
 			media,
 			product,
+			products,
 		},
 	}
 }
