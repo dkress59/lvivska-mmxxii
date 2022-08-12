@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react'
 
+import { LOCAL_STORAGE } from './constants'
 import { CartContext } from './context'
 import { WPProduct } from './types'
 
@@ -30,19 +31,25 @@ export function useCart(products: WPProduct[]) {
 		const newQuantity =
 			alreadyInCart - quantity >= 0 ? alreadyInCart - quantity : 0
 
-		const newCart = [
-			...cartItems.filter(({ product }) => product.acf.sku !== sku),
-			{
-				product: products.find(({ acf }) => acf.sku === sku)!,
-				quantity: newQuantity,
-			},
-		]
+		const entirelyRemoved = cartItems.filter(
+			({ product }) => product.acf.sku !== sku,
+		)
+
+		const newCart = !newQuantity
+			? entirelyRemoved
+			: [
+					...entirelyRemoved,
+					{
+						product: products.find(({ acf }) => acf.sku === sku)!,
+						quantity: newQuantity,
+					},
+			  ]
 
 		setCartItems(newCart)
 	}
 
 	useEffect(() => {
-		console.debug({ cartItems })
+		localStorage.setItem(LOCAL_STORAGE.CART, JSON.stringify(cartItems))
 	}, [cartItems])
 
 	return { cartItems, addToCart, removeFromCart }

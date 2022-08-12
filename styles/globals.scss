@@ -1,1 +1,6 @@
-@import './navigation.scss'
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "./base.scss";
+@import "./utils.scss";
+@import "./navigation.scss";

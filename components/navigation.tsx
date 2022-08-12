@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { MutableRefObject, useEffect, useRef } from 'react'
+import { MutableRefObject, useContext, useEffect, useRef } from 'react'
 
+import { CartContext } from '../util/context'
 import { StateSetter } from '../util/types'
 import { getActiveClassName } from '../util/util'
+import { CartIcon } from './icons'
 
 function getMainHeight(headerRef: MutableRefObject<null | HTMLDivElement>) {
 	const { innerHeight } = window
@@ -11,7 +13,6 @@ function getMainHeight(headerRef: MutableRefObject<null | HTMLDivElement>) {
 		headerRef.current!.offsetTop + headerRef.current!.clientHeight + 32
 	const mainEnd = innerHeight - 32
 
-	//console.debug({ innerHeight, mainStart, mainEnd, initialMainHeight })
 	return mainEnd - mainStart
 }
 
@@ -21,8 +22,8 @@ export function Navigation({
 	setInitialMainHeight: StateSetter<number>
 }) {
 	const { asPath } = useRouter()
-
 	const headerRef = useRef<null | HTMLDivElement>(null)
+	const { cartItems } = useContext(CartContext)
 
 	useEffect(() => {
 		setInitialMainHeight(getMainHeight(headerRef))
@@ -80,6 +81,13 @@ export function Navigation({
 						<span>Products</span>
 					</a>
 				</Link>
+				{!!cartItems.length && (
+					<Link href="/cart" passHref={true}>
+						<a className="cart">
+							<CartIcon />
+						</a>
+					</Link>
+				)}
 			</nav>
 		</header>
 	)

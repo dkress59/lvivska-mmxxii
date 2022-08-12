@@ -1,34 +1,24 @@
 {
 	"extends": [
-	  "stylelint-config-prettier-scss",
-	  "stylelint-config-recess-order",
-	  "stylelint-config-standard-scss",
-	  "stylelint-scss"
+		"stylelint-config-prettier-scss",
+		"stylelint-config-recess-order",
+		"stylelint-config-standard-scss",
+		"stylelint-scss"
 	],
-	"plugins": [
-	  "stylelint-csstree-validator",
-	  "stylelint-selector-no-empty"
-	],
+	"plugins": ["stylelint-csstree-validator", "stylelint-selector-no-empty"],
 	"rules": {
-    "indentation": "tab",
-	  "csstree/validator": {
-		"atrules": false,
-		"syntaxExtensions": [
-		  "sass"
-		]
-	  },
-	  "scss/at-import-partial-extension": "always",
-	  "scss/at-rule-no-unknown": [
-		true,
-		{
-		  "ignoreAtRules": [
-			"apply",
-			"layer",
-			"screen",
-			"tailwind"
-		  ]
-		}
-	  ]
+		"indentation": "tab",
+		"csstree/validator": {
+			"atrules": false,
+			"syntaxExtensions": ["sass"]
+		},
+		"scss/at-import-partial-extension": "always",
+		"scss/at-rule-no-unknown": [
+			true,
+			{
+				"ignoreAtRules": ["apply", "layer", "screen", "tailwind"]
+			}
+		],
+		"no-invalid-position-at-import-rule": null
 	}
-  }
-  
+}

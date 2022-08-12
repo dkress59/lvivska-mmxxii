@@ -22,7 +22,7 @@ export function ProductsPage({ media, page, products }: PageProps) {
 					/>
 				</figure>
 			)}
-			<article>
+			<article id="products">
 				<h1>{page.title.rendered}</h1>
 				<br />
 				{products.map(product => (

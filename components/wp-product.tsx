@@ -45,6 +45,12 @@ export function WpProduct({
 				<h1>{title.rendered}</h1>
 				<h2>{subtitle}</h2>
 				<br />
+				<button onClick={() => addToCart(sku, 1)}>+1</button>
+				<br />
+				<br />
+				<button onClick={() => removeFromCart(sku, 1)}>-1</button>
+				<br />
+				<br />
 				<section className="product-info">
 					<p>Füllmenge: {capacity} liter</p>
 					<p>
@@ -61,12 +67,6 @@ export function WpProduct({
 						__html: content.rendered,
 					}}
 				/>
-				<br />
-				<br />
-				<button onClick={() => addToCart(sku, 1)}>+1</button>
-				<br />
-				<br />
-				<button onClick={() => removeFromCart(sku, 1)}>-1</button>
 			</article>
 		</>
 	)

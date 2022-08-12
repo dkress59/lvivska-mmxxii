@@ -1,48 +1,62 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
 
-@layer base {
-	header {
-		@apply flex p-8 pb-0;
+// @layer base { // will purge
+header {
+	@apply flex p-8 pb-0;
 
-		.logo {
-			@apply mx-8 font-title text-6xl w-max leading-none;
-			margin-bottom: -0.2em;
-		}
+	.logo {
+		@apply mx-8 font-title text-6xl w-max leading-none;
 
-		nav {
-			@apply relative flex flex-grow;
+		margin-bottom: -0.2em;
+	}
 
-			a {
-				@apply relative block h-max p-4 mx-8 uppercase text-xs tracking-wider;
+	nav {
+		@apply relative flex flex-grow;
 
+		a:not(.cart) {
+			@apply relative block h-max p-4 mx-8 uppercase text-xs tracking-wider;
+
+			span {
+				@apply opacity-100 transition-opacity duration-700;
+			}
+
+			&::after {
+				/* stylelint-disable-next-line csstree/validator */
+				content: attr(title);
+
+				@apply font-bold opacity-0 transition-opacity duration-700;
+				@apply absolute block top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+			}
+
+			&.active {
 				span {
-					@apply opacity-100 transition-opacity duration-700;
+					@apply opacity-0;
 				}
 
 				&::after {
-					content: attr(title);
-					@apply font-bold opacity-0 transition-opacity duration-700;
-					@apply absolute block top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
-				}
-
-				&.active{
-					span {
-						@apply opacity-0;
-					}
-					&::after {
-						@apply opacity-100;
-					}
+					@apply opacity-100;
 				}
 			}
+		}
 
-			&:nth-of-type(1) {
-				@apply justify-end;
+		.cart {
+			@apply absolute right-4 top-1 fade-in-right;
+
+			svg {
+				@apply w-8 h-8;
 			}
-			&:nth-of-type(2) {
-				@apply justify-start;
-			}
+		}
+
+		&:nth-of-type(1) {
+			@apply justify-end;
+		}
+
+		&:nth-of-type(2) {
+			@apply justify-start;
 		}
 	}
 }
+
+// }

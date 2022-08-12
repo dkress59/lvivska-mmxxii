@@ -95,6 +95,11 @@ export interface ProductProps {
 	products: WPProduct[]
 }
 
+export interface CartProps {
+	media: CustomWPMedia[]
+	products: WPProduct[]
+}
+
 export interface CartItem {
 	product: WPProduct
 	quantity: number

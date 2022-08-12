@@ -24,6 +24,7 @@ export function getActiveClassName({
 	asPath: string
 	route: string
 }) {
+	if (asPath === '/' && route === 'explore') return 'active'
 	if (asPath.startsWith('/' + route + '/')) return 'active'
 	return undefined
 }

@@ -1,0 +1,51 @@
+@layer base {
+	body {
+		@apply p-4 h-screen;
+	}
+
+	/* stylelint-disable-next-line selector-id-pattern */
+	#__next {
+		@apply h-full flex flex-col;
+	}
+
+	main {
+		@apply flex-grow px-4 py-8 flex items-center;
+
+		h1 {
+			@apply font-title text-4xl uppercase;
+		}
+
+		figure {
+			@apply relative self-start mr-8 w-full max-h-full flex justify-end;
+
+			width: 50%;
+			height: var(--initial-main-height, "auto");
+		}
+
+		article {
+			&.page,
+			&.product,
+			&#products {
+				@apply w-1/2 h-max;
+			}
+
+			&#cart {
+				@apply min-h-full;
+
+				#items {
+					@apply grid grid-cols-2;
+				}
+
+				&.empty {
+					@apply min-h-0 mx-auto;
+				}
+			}
+		}
+	}
+
+	main + footer {
+		@apply fixed right-0 bottom-0;
+		@apply text-xs px-4 py-2;
+		@apply transition-opacity duration-700 opacity-25 hover:opacity-100;
+	}
+}
