@@ -7,13 +7,13 @@ header {
 	@apply flex p-8 pb-0;
 
 	.logo {
-		@apply mx-8 font-title text-6xl w-max leading-none;
+		@apply mx-8 font-title text-6xl w-max leading-none flex-1;
 
 		margin-bottom: -0.2em;
 	}
 
 	nav {
-		@apply relative flex flex-grow;
+		@apply relative flex flex-[4];
 
 		a:not(.cart) {
 			@apply relative block h-max p-4 mx-8 uppercase text-xs tracking-wider;
@@ -23,11 +23,11 @@ header {
 			}
 
 			&::after {
-				/* stylelint-disable-next-line csstree/validator */
-				content: attr(title);
-
 				@apply font-bold opacity-0 transition-opacity duration-700;
 				@apply absolute block top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
+
+				/* stylelint-disable-next-line csstree/validator */
+				content: attr(title);
 			}
 
 			&.active {

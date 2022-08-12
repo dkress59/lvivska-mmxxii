@@ -30,14 +30,26 @@
 			}
 
 			&#cart {
-				@apply min-h-full;
+				@apply w-full min-h-full flex flex-col;
+
+				h1 {
+					@apply mb-8 text-center;
+				}
 
 				#items {
-					@apply grid grid-cols-2;
+					@apply mt-8 flex-grow grid grid-cols-2 gap-8 w-max mx-auto;
+
+					img {
+						@apply max-w-sm h-auto;
+					}
 				}
 
 				&.empty {
-					@apply min-h-0 mx-auto;
+					@apply min-h-0;
+
+					h1 {
+						@apply text-center;
+					}
 				}
 			}
 		}
