@@ -11,18 +11,24 @@ export function CheckoutPage({ products }: { products: WPProduct[] }) {
 	const stripePromise = loadStripe(NEXT_PUBLIC_STRIPE_PUBLIC_KEY)
 
 	return (
-		!!clientSecret && (
-			<Elements
-				options={{
-					clientSecret,
-					appearance: {
-						theme: 'night',
-					},
-				}}
-				stripe={stripePromise}
-			>
-				<CheckoutForm />
-			</Elements>
-		)
+		<article id="checkout">
+			<h1>Checkout</h1>
+			<p>Wählen Sie Ihre Zahlungsmethode:</p>
+			<br />
+			{!!clientSecret && (
+				<Elements
+					options={{
+						clientSecret,
+						appearance: {
+							theme: 'stripe',
+						},
+						locale: 'de',
+					}}
+					stripe={stripePromise}
+				>
+					<CheckoutForm />
+				</Elements>
+			)}
+		</article>
 	)
 }

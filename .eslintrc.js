@@ -5,10 +5,10 @@ module.exports = {
 		jest: true,
 	},
 	extends: [
-        '@tool-belt/eslint-config',
-        'next/core-web-vitals',
-        // 'plugin:react/recommended',
-    ],
+		'@tool-belt/eslint-config',
+		'next/core-web-vitals',
+		// 'plugin:react/recommended',
+	],
 	ignorePatterns: [
 		'**/coverage-e2e/*',
 		'**/coverage/*',
@@ -23,5 +23,6 @@ module.exports = {
 	rules: {
 		'curly': 'off',
 		'unused-imports/no-unused-imports': 'error',
+		'@next/next/no-img-element': 'off',
 	},
 }

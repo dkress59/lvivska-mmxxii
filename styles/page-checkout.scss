@@ -1,0 +1,7 @@
+article#checkout {
+	@apply mx-auto;
+
+	button#submit {
+		@apply bg-black text-white w-full p-2 mt-4;
+	}
+}

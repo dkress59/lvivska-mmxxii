@@ -3,4 +3,9 @@
 @tailwind utilities;
 @import "./base.scss";
 @import "./utils.scss";
+
+// components
 @import "./navigation.scss";
+@import "./page-cart.scss";
+@import "./page-checkout.scss";
+@import "./page-product.scss";

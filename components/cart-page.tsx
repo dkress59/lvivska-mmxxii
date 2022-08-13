@@ -1,5 +1,7 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
+import { ThreeDots } from 'react-loading-icons'
 
 import { useCart } from '../util/hooks'
 import { CartProps, CustomWPMedia, WPProduct } from '../util/types'
@@ -8,6 +10,7 @@ import {
 	cartItemsToTax,
 	cartItemsToTotal,
 	createPaymentIntent,
+	getImgSrcSet,
 } from '../util/util'
 
 function getImageForProduct({
@@ -21,16 +24,27 @@ function getImageForProduct({
 }
 
 export function CartPage({ media, products }: CartProps) {
-	const { cartItems, setClientSecret } = useCart(products)
+	const [isLoading, setIsLoading] = useState(false)
+	const {
+		cartItems,
+		clientSecret,
+		setClientSecret,
+		addToCart,
+		removeFromCart,
+	} = useCart(products)
 	const router = useRouter()
 
 	function onProceedToCheckout() {
+		setIsLoading(true)
 		;(async () => {
 			try {
-				setClientSecret(await createPaymentIntent(cartItems))
+				if (!clientSecret)
+					setClientSecret(await createPaymentIntent(cartItems))
 				await router.push('/checkout')
 			} catch (exception) {
 				console.error(exception)
+			} finally {
+				setIsLoading(false)
 			}
 		})()
 	}
@@ -52,24 +66,60 @@ export function CartPage({ media, products }: CartProps) {
 					return (
 						<Fragment key={product.acf.sku}>
 							{image ? (
-								// eslint-disable-next-line @next/next/no-img-element
-								<img
-									alt={image.alt_text}
-									src={image.source_url}
-									width={image.media_details.width}
-									height={image.media_details.height}
-								/>
+								<Link
+									href={`/products/${product.slug}`}
+									passHref={true}
+								>
+									<a>
+										{/* eslint-disable-next-line @next/next/no-img-element */}
+										<img
+											alt={image.alt_text}
+											src={image.source_url}
+											width={image.media_details.width}
+											height={image.media_details.height}
+											srcSet={getImgSrcSet(image)}
+										/>
+									</a>
+								</Link>
 							) : (
 								<span />
 							)}
-							<p>
-								{quantity}x {product.title.rendered}
-							</p>
+							<div>
+								<p className="title">
+									<h3>{product.title.rendered}</h3>
+									<button
+										onClick={() =>
+											removeFromCart(product.acf.sku, 1)
+										}
+									>
+										-
+									</button>
+									<span>{quantity}</span>
+									<button
+										onClick={() =>
+											addToCart(product.acf.sku, 1)
+										}
+									>
+										+
+									</button>
+								</p>
+								<small
+									dangerouslySetInnerHTML={{
+										__html: product.acf.subtitle,
+									}}
+								/>
+							</div>
 						</Fragment>
 					)
 				})}
 			</section>
-			<button onClick={onProceedToCheckout}>Proceed to checkout</button>
+			<button
+				className="checkout"
+				disabled={isLoading}
+				onClick={onProceedToCheckout}
+			>
+				Jetzt bestellen{isLoading && <ThreeDots />}
+			</button>
 			<section id="summary">
 				<aside>
 					<p>Netto:</p>
@@ -77,7 +127,7 @@ export function CartPage({ media, products }: CartProps) {
 					<p>MwSt.:</p>
 					<p>{cartItemsToTax(cartItems, 19)}€</p>
 					<p>Total:</p>
-					<p>{cartItemsToTotal(cartItems).toFixed(2)}€</p>
+					<p>{cartItemsToTotal(cartItems)}€</p>
 				</aside>
 			</section>
 		</article>

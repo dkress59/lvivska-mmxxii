@@ -1,9 +1,16 @@
-import React, { PropsWithChildren, useState } from 'react'
+import React, { PropsWithChildren, useEffect, useState } from 'react'
 
+import { LOCAL_STORAGE } from './constants'
 import { CartItem, StateSetter } from './types'
 
-// FixMe
-/* function getCartFromLocalStorage(): CartItem[] {
+interface CartContextDefinition {
+	cartItems: CartItem[]
+	setCartItems: StateSetter<CartItem[]>
+	clientSecret: string
+	setClientSecret: StateSetter<string>
+}
+
+function getCartFromLocalStorage(): CartItem[] {
 	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	if (!global.window) return []
 	return (
@@ -11,13 +18,6 @@ import { CartItem, StateSetter } from './types'
 			| undefined
 			| CartItem[]) ?? []
 	)
-} */
-
-interface CartContextDefinition {
-	cartItems: CartItem[]
-	setCartItems: StateSetter<CartItem[]>
-	clientSecret: string
-	setClientSecret: StateSetter<string>
 }
 
 export const CartContext = React.createContext<CartContextDefinition>({
@@ -28,11 +28,22 @@ export const CartContext = React.createContext<CartContextDefinition>({
 })
 
 export function CartContextProvider({ children }: PropsWithChildren) {
-	const [cartItems, setCartItems] = useState<CartItem[]>(
-		//getCartFromLocalStorage()
-		[],
-	)
+	const [initialRender, setInitialRender] = useState(true)
+	const [cartItems, setCartItems] = useState<CartItem[]>([])
 	const [clientSecret, setClientSecret] = useState('')
+
+	useEffect(() => {
+		setCartItems(getCartFromLocalStorage())
+		setInitialRender(false)
+	}, [])
+
+	useEffect(() => {
+		if (!initialRender) {
+			localStorage.setItem(LOCAL_STORAGE.CART, JSON.stringify(cartItems))
+		} else {
+			console.debug('initial useCart render')
+		}
+	}, [cartItems, initialRender])
 
 	return (
 		<CartContext.Provider

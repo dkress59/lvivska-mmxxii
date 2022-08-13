@@ -1,0 +1,74 @@
+article#cart {
+	@apply w-full min-h-full flex flex-col;
+
+	h1 {
+		@apply mb-8 text-center;
+	}
+
+	#items {
+		@apply mt-8 flex-grow grid grid-cols-2 gap-8 w-max mx-auto;
+
+		img {
+			@apply max-w-sm h-auto;
+		}
+
+		div {
+			.title {
+				@apply flex flex-wrap items-end;
+
+				h3 {
+					@apply flex-grow leading-none pb-px;
+				}
+			}
+		}
+
+		button {
+			@apply bg-black text-white w-6 py-0;
+
+			+span {
+				@apply tabular-nums mx-2;
+			}
+		}
+
+		small {
+			@apply w-full;
+		}
+	}
+
+	button.checkout {
+		@apply bg-black text-white mb-4 w-max px-4 py-2 mx-auto;
+
+		svg {
+			@apply inline-block h-2 w-auto ml-4;
+		}
+	}
+
+	#summary {
+		@apply w-full flex justify-end pr-8;
+
+		aside {
+			@apply w-max grid grid-cols-2 gap-x-2;
+		}
+
+		p {
+			@apply text-sm mt-0;
+
+			&:nth-child(even) {
+				@apply text-right tabular-nums;
+			}
+
+			&:last-child,
+			&:nth-last-child(2) {
+				@apply font-semibold;
+			}
+		}
+	}
+
+	&.empty {
+		@apply min-h-0;
+
+		h1 {
+			@apply text-center;
+		}
+	}
+}

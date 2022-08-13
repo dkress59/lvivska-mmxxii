@@ -24,7 +24,6 @@ export function ProductsPage({ media, page, products }: PageProps) {
 			)}
 			<article id="products">
 				<h1>{page.title.rendered}</h1>
-				<br />
 				{products.map(product => (
 					<section key={product.slug}>
 						<Link href={`/products/${product.slug}`} passHref>

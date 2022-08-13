@@ -42,10 +42,16 @@ header {
 		}
 
 		.cart {
-			@apply absolute right-4 top-1 fade-in-right;
+			@apply absolute right-4 top-1 fade-in-left;
 
 			svg {
 				@apply w-8 h-8;
+			}
+
+			.cart-total {
+				@apply bg-black text-white rounded;
+				@apply text-xs font-semibold p-1;
+				@apply absolute block -bottom-8 left-1/2 transform-gpu -translate-x-1/2;
 			}
 		}
 

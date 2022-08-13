@@ -10,7 +10,7 @@ export function WpPage({ media, page }: PageProps) {
 	return (
 		<>
 			{!!featuredMedia && (
-				<figure>
+				<figure className="page">
 					<Image
 						alt={featuredMedia.alt_text}
 						layout="fill"
@@ -23,7 +23,6 @@ export function WpPage({ media, page }: PageProps) {
 			)}
 			<article className="page">
 				<h1>{page.title.rendered}</h1>
-				<br />
 				<div
 					dangerouslySetInnerHTML={{ __html: page.content.rendered }}
 				/>

@@ -5,7 +5,7 @@ import { MutableRefObject, useContext, useEffect, useRef } from 'react'
 import { CartContext } from '../util/context'
 import { StateSetter } from '../util/types'
 import { getActiveClassName } from '../util/util'
-import { CartIcon } from './icons'
+import { CartButton } from './cart-button'
 
 function getMainHeight(headerRef: MutableRefObject<null | HTMLDivElement>) {
 	const { innerHeight } = window
@@ -81,13 +81,7 @@ export function Navigation({
 						<span>Products</span>
 					</a>
 				</Link>
-				{!!cartItems.length && (
-					<Link href="/cart" passHref={true}>
-						<a className="cart">
-							<CartIcon />
-						</a>
-					</Link>
-				)}
+				{!!cartItems.length && <CartButton {...{ cartItems }} />}
 			</nav>
 		</header>
 	)

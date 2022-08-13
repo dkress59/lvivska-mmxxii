@@ -44,11 +44,13 @@ function nettoFromTotal(total: number, taxPercent: number) {
 }
 
 export const cartItemsToTotal = (cartItems: CartItem[]) =>
-	cartItems.reduce(
-		(previous: number, current: CartItem) =>
-			previous + current.quantity * current.product.acf.price,
-		0,
-	)
+	cartItems
+		.reduce(
+			(previous: number, current: CartItem) =>
+				previous + current.quantity * current.product.acf.price,
+			0,
+		)
+		.toFixed(2)
 
 export const cartItemsToTax = (cartItems: CartItem[], tax: number) =>
 	cartItems.reduce(
@@ -75,4 +77,11 @@ export async function createPaymentIntent(cartItems: CartItem[]) {
 
 	const data = <{ clientSecret: string }>await response.json()
 	return data.clientSecret
+}
+
+export function getImgSrcSet(image: CustomWPMedia): string {
+	const srcSet = Object.values(image.media_details.sizes).map(
+		size => `${size.source_url} ${size.width}w`,
+	)
+	return srcSet.join(', ')
 }

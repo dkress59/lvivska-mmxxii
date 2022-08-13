@@ -18,11 +18,12 @@ export default async function handler(
 
 	// Create a PaymentIntent with the order amount and currency
 	const paymentIntent = await stripe.paymentIntents.create({
-		amount: cartItemsToTotal(cartItems) * 100, // in cents
+		amount: Number(cartItemsToTotal(cartItems)) * 100, // in cents
 		currency: 'eur',
 		automatic_payment_methods: {
 			enabled: true,
 		},
+		receipt_email: 'stripe-test@damiankress.de',
 	})
 
 	res.send({

@@ -1,7 +1,6 @@
-import Image from 'next/image'
-
 import { useCart } from '../util/hooks'
 import { ProductProps } from '../util/types'
+import { getImgSrcSet } from '../util/util'
 
 export function WpProduct({
 	media,
@@ -21,7 +20,7 @@ export function WpProduct({
 	},
 	products,
 }: ProductProps) {
-	const { addToCart, removeFromCart } = useCart(products)
+	const { addToCart, removeFromCart, cartItems } = useCart(products)
 
 	const featuredMedia = media.find(
 		attachment => attachment.id === featured_media,
@@ -30,39 +29,47 @@ export function WpProduct({
 	return (
 		<>
 			{!!featuredMedia && (
-				<figure>
-					<Image
+				<figure className="product">
+					<img
 						alt={featuredMedia.alt_text}
-						layout="fill"
-						objectFit="contain"
-						objectPosition="right"
-						priority={true}
 						src={featuredMedia.source_url}
+						srcSet={getImgSrcSet(featuredMedia)}
 					/>
+					<figcaption>
+						<p>Füllmenge: {capacity} liter</p>
+						<p>
+							BxHxT: {width}x{height}x{depth}cm
+						</p>
+						<p>Gewicht: {weight}kg</p>
+					</figcaption>
 				</figure>
 			)}
 			<article className="product">
 				<h1>{title.rendered}</h1>
 				<h2>{subtitle}</h2>
 				<br />
-				<button onClick={() => addToCart(sku, 1)}>+1</button>
-				<br />
-				<br />
-				<button onClick={() => removeFromCart(sku, 1)}>-1</button>
-				<br />
-				<br />
 				<section className="product-info">
-					<p>Füllmenge: {capacity} liter</p>
-					<p>
-						BxHxT: {width}x{height}x{depth}cm
-					</p>
-					<p>
-						Preis: {price}€ <small>{price / capacity}€/liter</small>
-					</p>
-					<p>Auf Lager: {stock}</p>
-					<p>Gewicht: {weight}kg</p>
+					<div className="quantity">
+						<p>
+							<button onClick={() => removeFromCart(sku, 1)}>
+								-
+							</button>
+							<span>
+								{cartItems.find(
+									item => item.product.acf.sku === sku,
+								)?.quantity ?? 0}
+							</span>
+							<button onClick={() => addToCart(sku, 1)}>+</button>
+						</p>
+						<small>Auf Lager: {stock}</small>
+					</div>
+					<div className="price">
+						<p>Preis: {price}€</p>
+						<small>{price / capacity}€/liter</small>
+					</div>
 				</section>
 				<section
+					className="description"
 					dangerouslySetInnerHTML={{
 						__html: content.rendered,
 					}}

@@ -1,5 +1,5 @@
 @layer utilities {
-	@keyframes fade-in-right {
+	@keyframes fade-in-left {
 		0% {
 			@apply opacity-0 translate-x-1/2;
 		}
@@ -9,7 +9,41 @@
 		}
 	}
 
-	.fade-in-right {
-		animation: fade-in-right 300ms ease-out;
+	@keyframes fade-in-bottom {
+		0% {
+			@apply opacity-0 -translate-y-1/2;
+		}
+
+		100% {
+			@apply opacity-100 translate-y-0;
+		}
+	}
+
+	@keyframes fade-out-top {
+		0% {
+			@apply opacity-100 translate-y-0;
+		}
+
+		100% {
+			@apply opacity-0 -translate-y-1/2;
+		}
+	}
+
+	.fade-in-left {
+		@apply transform-gpu;
+
+		animation: fade-in-left 300ms ease-out forwards;
+	}
+
+	.fade-in-bottom {
+		@apply transform-gpu;
+
+		animation: fade-in-bottom 300ms ease-out forwards;
+	}
+
+	.fade-out-top {
+		@apply transform-gpu;
+
+		animation: fade-out-top 300ms ease-out forwards;
 	}
 }

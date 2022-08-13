@@ -1,6 +1,5 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 
-import { LOCAL_STORAGE } from './constants'
 import { CartContext } from './context'
 import { WPProduct } from './types'
 
@@ -48,10 +47,6 @@ export function useCart(products: WPProduct[]) {
 
 		setCartItems(newCart)
 	}
-
-	useEffect(() => {
-		localStorage.setItem(LOCAL_STORAGE.CART, JSON.stringify(cartItems))
-	}, [cartItems])
 
 	return {
 		cartItems,

@@ -1,0 +1,30 @@
+figure.product {
+	@apply h-max self-center flex-wrap;
+
+	figcaption {
+		@apply w-full mt-2 grid grid-cols-3 text-left text-sm;
+		@apply -mt-5 ml-2 leading-none text-white;
+	}
+}
+
+article.product {
+	.product-info {
+		@apply flex items-baseline;
+
+		.quantity {
+			@apply mr-8;
+
+			button {
+				@apply inline-block bg-black text-white w-6 py-0;
+
+				+span {
+					@apply inline-block w-9 tabular-nums text-center;
+				}
+			}
+		}
+	}
+
+	.description {
+		@apply mt-4 text-sm;
+	}
+}
