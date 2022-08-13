@@ -1,7 +1,6 @@
-import Image from 'next/image'
-import Link from 'next/link'
-
 import { PageProps } from '../util/types'
+import { getImgSrcSet } from '../util/util'
+import { ProductTile } from './product-tile'
 
 export function ProductsPage({ media, page, products }: PageProps) {
 	const featuredMedia = media.find(
@@ -10,27 +9,24 @@ export function ProductsPage({ media, page, products }: PageProps) {
 
 	return (
 		<>
-			{!!featuredMedia && (
-				<figure>
-					<Image
-						alt={featuredMedia.alt_text}
-						layout="fill"
-						objectFit="contain"
-						objectPosition="right"
-						priority={true}
-						src={featuredMedia.source_url}
-					/>
-				</figure>
-			)}
 			<article id="products">
+				{!!featuredMedia && (
+					<img
+						id="background"
+						alt={featuredMedia.alt_text}
+						src={featuredMedia.source_url}
+						srcSet={getImgSrcSet(featuredMedia)}
+					/>
+				)}
 				<h1>{page.title.rendered}</h1>
-				{products.map(product => (
-					<section key={product.slug}>
-						<Link href={`/products/${product.slug}`} passHref>
-							{product.title.rendered}
-						</Link>
-					</section>
-				))}
+				<div id="stage">
+					{products.map(product => (
+						<ProductTile
+							key={product.slug}
+							{...{ media, product }}
+						/>
+					))}
+				</div>
 			</article>
 		</>
 	)

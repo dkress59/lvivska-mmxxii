@@ -34,9 +34,10 @@
 		}
 
 		article {
+			@apply relative;
+
 			&.page,
-			&.product,
-			&#products {
+			&.product {
 				@apply w-1/2 h-max;
 			}
 

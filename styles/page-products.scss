@@ -1,0 +1,45 @@
+article#products {
+	@apply w-full flex flex-col justify-center items-center bg-black;
+
+	min-height: var(--initial-main-height);
+
+	#background {
+		@apply absolute z-0 inset-0 w-full h-full object-cover object-center opacity-90;
+
+		~* {
+			@apply z-10;
+		}
+	}
+
+	h1 {
+		@apply text-white mt-4 drop-shadow-lg;
+	}
+
+	#stage {
+		@apply flex flex-wrap justify-center;
+	}
+
+	section {
+		@apply relative bg-white m-4 rounded-md overflow-hidden;
+
+		h2 {
+			@apply absolute z-30 bottom-2 right-4 left-6 text-xl w-full text-center transition-all duration-300;
+		}
+
+		img {
+			@apply w-96 transform-gpu transition-all duration-300;
+		}
+
+		&:hover,
+		&:active,
+		&:focus {
+			h2 {
+				@apply bottom-4;
+			}
+
+			img {
+				@apply opacity-50 scale-105;
+			}
+		}
+	}
+}
