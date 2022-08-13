@@ -65,7 +65,7 @@ export function WpProduct({
 					</div>
 					<div className="price">
 						<p>Preis: {price}€</p>
-						<small>{price / capacity}€/liter</small>
+						<small>{(price / capacity).toFixed(2)}€/liter</small>
 					</div>
 				</section>
 				<section
