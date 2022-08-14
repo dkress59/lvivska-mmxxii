@@ -1,5 +1,8 @@
+import Head from 'next/head'
+
 import { PageProps } from '../util/types'
 import { getImgSrcSet } from '../util/util'
+import { ImagePreloader } from './image-preloader'
 import { ProductTile } from './product-tile'
 
 export function ProductsPage({ media, page, products }: PageProps) {
@@ -9,6 +12,9 @@ export function ProductsPage({ media, page, products }: PageProps) {
 
 	return (
 		<>
+			<Head>
+				<ImagePreloader {...{ media }} />
+			</Head>
 			<article id="products">
 				{!!featuredMedia && (
 					<img

@@ -30,6 +30,10 @@
 
 			&.page {
 				@apply self-start max-h-full flex justify-end;
+
+				img {
+					@apply object-contain object-right;
+				}
 			}
 		}
 

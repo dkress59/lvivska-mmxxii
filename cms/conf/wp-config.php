@@ -83,6 +83,8 @@ define( 'WP_DEBUG', (bool) getenv('WORDPRESS_DEBUG') );
 
 /* Add any custom values between this line and the "stop editing" line. */
 define( 'FS_METHOD' , getenv('WORDPRESS_FS_METHOD'));
+define( 'WP_HOME', getenv('NEXT_PUBLIC_CMS_URL') );
+define( 'WP_SITEURL', getenv('NEXT_PUBLIC_CMS_URL') );
 
 
 

@@ -1,6 +1,8 @@
-import Image from 'next/image'
+import Head from 'next/head'
 
 import { PageProps } from '../util/types'
+import { getImgSrcSet } from '../util/util'
+import { ImagePreloader } from './image-preloader'
 
 export function WpPage({ media, page }: PageProps) {
 	const featuredMedia = media.find(
@@ -9,15 +11,15 @@ export function WpPage({ media, page }: PageProps) {
 
 	return (
 		<>
+			<Head>
+				<ImagePreloader {...{ media }} />
+			</Head>
 			{!!featuredMedia && (
 				<figure className="page">
-					<Image
+					<img
 						alt={featuredMedia.alt_text}
-						layout="fill"
-						objectFit="contain"
-						objectPosition="right"
-						priority={true}
 						src={featuredMedia.source_url}
+						srcSet={getImgSrcSet(featuredMedia)}
 					/>
 				</figure>
 			)}

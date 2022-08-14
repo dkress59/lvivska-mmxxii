@@ -38,8 +38,6 @@ export function CartContextProvider({ children }: PropsWithChildren) {
 	useEffect(() => {
 		if (!initialRender) {
 			localStorage.setItem(LOCAL_STORAGE.CART, JSON.stringify(cartItems))
-		} else {
-			console.debug('initial useCart render')
 		}
 	}, [cartItems, initialRender])
 
