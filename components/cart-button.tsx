@@ -1,11 +1,17 @@
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { MouseEventHandler, useEffect, useState } from 'react'
 
 import { CartItem } from '../util/types'
 import { cartItemsToTotal } from '../util/util'
 import { CartIcon } from './icons'
 
-export function CartButton({ cartItems }: { cartItems: CartItem[] }) {
+export function CartButton({
+	cartItems,
+	closeMenu,
+}: {
+	cartItems: CartItem[]
+	closeMenu: MouseEventHandler
+}) {
 	const [className, setClassName] = useState('cart-total fade-in-bottom')
 
 	useEffect(() => {
@@ -23,7 +29,7 @@ export function CartButton({ cartItems }: { cartItems: CartItem[] }) {
 
 	return (
 		<Link href="/cart" passHref={true}>
-			<a className="cart">
+			<a className="cart" onClick={closeMenu}>
 				<CartIcon />
 				<span className={className}>
 					{cartItemsToTotal(cartItems)}€

@@ -4,4 +4,8 @@ article#checkout {
 	button#submit {
 		@apply bg-black text-white w-full p-2 mt-4;
 	}
+
+	@screen mobile {
+		@apply pt-24;
+	}
 }

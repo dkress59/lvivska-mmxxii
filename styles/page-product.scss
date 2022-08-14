@@ -1,9 +1,11 @@
 figure.product {
-	@apply h-max self-center flex-wrap;
+	@screen desktop {
+		@apply h-max self-center flex-wrap;
 
-	figcaption {
-		@apply w-full mt-2 grid grid-cols-3 text-left text-sm;
-		@apply -mt-5 ml-2 leading-none text-white;
+		figcaption {
+			@apply w-full mt-2 grid grid-cols-3 text-left text-sm;
+			@apply -mt-5 ml-2 leading-none text-white;
+		}
 	}
 }
 

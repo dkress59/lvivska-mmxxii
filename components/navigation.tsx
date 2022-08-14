@@ -1,6 +1,12 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { MutableRefObject, useContext, useEffect, useRef } from 'react'
+import {
+	MutableRefObject,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from 'react'
 
 import { CartContext } from '../util/context'
 import { StateSetter } from '../util/types'
@@ -21,68 +27,108 @@ export function Navigation({
 }: {
 	setInitialMainHeight: StateSetter<number>
 }) {
-	const { asPath } = useRouter()
-	const headerRef = useRef<null | HTMLDivElement>(null)
+	const [isActive, setIsActive] = useState(false)
 	const { cartItems } = useContext(CartContext)
+	const headerRef = useRef<null | HTMLDivElement>(null)
+	const { asPath } = useRouter()
+
+	const closeMenu = () => setIsActive(false)
 
 	useEffect(() => {
 		setInitialMainHeight(getMainHeight(headerRef))
 	}, [setInitialMainHeight])
 
+	useEffect(() => {
+		const mainElement = document.querySelector('main')
+
+		function onScroll() {
+			if (isActive) closeMenu()
+		}
+
+		mainElement?.addEventListener('click', closeMenu)
+		document.addEventListener('scroll', onScroll)
+
+		return () => {
+			mainElement?.removeEventListener('click', closeMenu)
+			document.removeEventListener('scroll', onScroll)
+		}
+	})
+
 	return (
-		<header ref={headerRef}>
-			<nav className="nav">
-				<Link href="/explore">
-					<a
-						className={getActiveClassName({
-							asPath,
-							route: 'explore',
-						})}
-						title="Explore"
-					>
-						<span>Explore</span>
+		<>
+			<header ref={headerRef} className={isActive ? 'active' : undefined}>
+				<nav className="nav">
+					<Link href="/explore">
+						<a
+							className={getActiveClassName({
+								asPath,
+								route: 'explore',
+							})}
+							onClick={closeMenu}
+							title="Explore"
+						>
+							<span>Explore</span>
+						</a>
+					</Link>
+					<Link href="/spirit">
+						<a
+							className={getActiveClassName({
+								asPath,
+								route: 'spirit',
+							})}
+							onClick={closeMenu}
+							title="Spirit"
+						>
+							<span>Spirit</span>
+						</a>
+					</Link>
+				</nav>
+				<Link href="/">
+					<a className="logo" onClick={closeMenu}>
+						LVIVSKA
 					</a>
 				</Link>
-				<Link href="/spirit">
-					<a
-						className={getActiveClassName({
-							asPath,
-							route: 'spirit',
-						})}
-						title="Spirit"
-					>
-						<span>Spirit</span>
-					</a>
-				</Link>
-			</nav>
+				<nav className="nav">
+					<Link href="/quality">
+						<a
+							className={getActiveClassName({
+								asPath,
+								route: 'quality',
+							})}
+							onClick={closeMenu}
+							title="Quality"
+						>
+							<span>Quality</span>
+						</a>
+					</Link>
+					<Link href="/products">
+						<a
+							className={getActiveClassName({
+								asPath,
+								route: 'products',
+							})}
+							onClick={closeMenu}
+							title="Products"
+						>
+							<span>Products</span>
+						</a>
+					</Link>
+					{!!cartItems.length && (
+						<CartButton {...{ cartItems, closeMenu }} />
+					)}
+				</nav>
+			</header>
+			<button
+				id="mobile-menu-button"
+				onClick={() => setIsActive(!isActive)}
+			>
+				Menu
+			</button>
 			<Link href="/">
-				<a className="logo">LVIVSKA</a>
+				<a className="mobile logo" onClick={closeMenu}>
+					LVIVSKA
+				</a>
 			</Link>
-			<nav className="nav">
-				<Link href="/quality">
-					<a
-						className={getActiveClassName({
-							asPath,
-							route: 'quality',
-						})}
-						title="Quality"
-					>
-						<span>Quality</span>
-					</a>
-				</Link>
-				<Link href="/products">
-					<a
-						className={getActiveClassName({
-							asPath,
-							route: 'products',
-						})}
-						title="Products"
-					>
-						<span>Products</span>
-					</a>
-				</Link>
-				{!!cartItems.length && <CartButton {...{ cartItems }} />}
-			</nav>
-		</header>
+		</>
 	)
 }
