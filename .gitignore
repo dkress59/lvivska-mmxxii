@@ -157,3 +157,4 @@ next-env.d.ts
 !.yarn/versions
 
 # Misc
+*.env*

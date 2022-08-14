@@ -13,11 +13,9 @@ interface CartContextDefinition {
 function getCartFromLocalStorage(): CartItem[] {
 	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 	if (!global.window) return []
-	return (
-		(JSON.parse(localStorage.getItem(LOCAL_STORAGE.CART) ?? '') as
-			| undefined
-			| CartItem[]) ?? []
-	)
+	const stored = localStorage.getItem(LOCAL_STORAGE.CART)
+	if (!stored) return []
+	return JSON.parse(stored) as CartItem[]
 }
 
 export const CartContext = React.createContext<CartContextDefinition>({
