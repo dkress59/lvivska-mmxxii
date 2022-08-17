@@ -1,5 +1,16 @@
 services:
 
+  app:
+    build:
+      target: dev-image
+    volumes:
+      - ./components:/lvivska/components
+      - ./pages:/lvivska/pages
+      - ./public:/lvivska/public
+      - ./styles:/lvivska/styles
+      - ./util:/lvivska/util
+      - ./tailwind.config.js:/lvivska/tailwind.config.js
+
   phpmyadmin:
     deploy:
       replicas: 0 # comment-out to use this

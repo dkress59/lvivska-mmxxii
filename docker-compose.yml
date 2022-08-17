@@ -2,6 +2,21 @@ version: '3.9'
 
 services:
 
+  app:
+    container_name: lvivska-app
+    depends_on:
+      - wordpress
+    ports:
+      - '3000:3000'
+    build:
+      context: .
+      target: prod-image
+    environment:
+      NEXT_PUBLIC_URL: ${NEXT_PUBLIC_URL}
+      NEXT_PUBLIC_CMS_URL: ${NEXT_PUBLIC_CMS_URL}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      NEXT_PUBLIC_STRIPE_PUBLIC_KEY: ${NEXT_PUBLIC_STRIPE_PUBLIC_KEY}
+
   database:
     container_name: lvivska-database
     image: mariadb:latest
