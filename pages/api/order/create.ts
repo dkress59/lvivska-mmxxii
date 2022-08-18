@@ -45,14 +45,15 @@ export default async function handler(
 			},
 		}),
 	)
-	console.debug({ lineItems })
 
 	try {
 		const order = await stripe.orders.create({
 			currency: 'eur',
 			line_items: lineItems,
 			expand: ['line_items'],
-			//automatic_tax:
+			automatic_tax: {
+				enabled: true,
+			},
 			billing_details: {
 				address: {
 					city: 'Leipzig',
@@ -94,6 +95,7 @@ export default async function handler(
 						currency: 'eur',
 					},
 					type: 'fixed_amount',
+					tax_behavior: 'inclusive',
 				},
 			},
 			/* payment: {
