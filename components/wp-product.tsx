@@ -1,9 +1,6 @@
-import Head from 'next/head'
-
 import { useCart } from '../util/hooks'
 import { ProductProps } from '../util/types'
 import { getImgSrcSet } from '../util/util'
-import { ImagePreloader } from './image-preloader'
 
 export function WpProduct({
 	media,
@@ -31,9 +28,6 @@ export function WpProduct({
 
 	return (
 		<>
-			<Head>
-				<ImagePreloader {...{ media }} />
-			</Head>
 			{!!featuredMedia && (
 				<figure className="product">
 					<img
