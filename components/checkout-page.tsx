@@ -8,7 +8,10 @@ import { WPProduct } from '../util/types'
 
 export function CheckoutPage({ products }: { products: WPProduct[] }) {
 	const { clientSecret } = useCart(products)
-	const stripePromise = loadStripe(NEXT_PUBLIC_STRIPE_PUBLIC_KEY)
+	const stripePromise = loadStripe(NEXT_PUBLIC_STRIPE_PUBLIC_KEY, {
+		betas: ['process_order_beta_1'],
+		apiVersion: '2022-08-01; orders_beta=v4',
+	})
 
 	return (
 		<article id="checkout">

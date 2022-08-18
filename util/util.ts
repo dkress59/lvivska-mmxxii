@@ -1,3 +1,5 @@
+import Stripe from 'stripe'
+
 import { CmsClient } from './cms-client'
 import { CartItem, CustomWPMedia } from './types'
 
@@ -68,10 +70,12 @@ export const cartItemsToNetto = (cartItems: CartItem[], tax: number) =>
 		0,
 	)
 
+const jsonHeader = { 'Content-Type': 'application/json' }
+
 export async function createPaymentIntent(cartItems: CartItem[]) {
 	const response = await fetch('/api/create-payment-intent', {
 		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
+		headers: jsonHeader,
 		body: JSON.stringify({ cartItems }),
 	})
 
@@ -84,4 +88,38 @@ export function getImgSrcSet(image: CustomWPMedia): string {
 		size => `${size.source_url} ${size.width}w`,
 	)
 	return srcSet.join(', ')
+}
+
+export async function createOrder(
+	cartItems: CartItem[],
+): Promise<Stripe.Response<Stripe.Order>> {
+	const response = await fetch('/api/order/create', {
+		method: 'POST',
+		headers: jsonHeader,
+		body: JSON.stringify({ cartItems }),
+	})
+
+	return <Stripe.Response<Stripe.Order>>await response.json()
+}
+
+export async function getOrderSecret(
+	orderId: string,
+): Promise<{ clientSecret: string | null }> {
+	const response = await fetch('/api/order/secret', {
+		method: 'POST',
+		headers: jsonHeader,
+		body: JSON.stringify({ orderId }),
+	})
+
+	return <{ clientSecret: string | null }>await response.json()
+}
+
+export async function submitOrder(order: Stripe.Order): Promise<unknown> {
+	const response = await fetch('/api/order/submit', {
+		method: 'POST',
+		headers: jsonHeader,
+		body: JSON.stringify({ order }),
+	})
+
+	return <unknown>await response.json()
 }

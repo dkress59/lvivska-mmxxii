@@ -9,8 +9,9 @@ import {
 	cartItemsToNetto,
 	cartItemsToTax,
 	cartItemsToTotal,
-	createPaymentIntent,
+	createOrder,
 	getImgSrcSet,
+	getOrderSecret,
 } from '../util/util'
 
 function getImageForProduct({
@@ -38,9 +39,15 @@ export function CartPage({ media, products }: CartProps) {
 		setIsLoading(true)
 		;(async () => {
 			try {
-				if (!clientSecret)
-					setClientSecret(await createPaymentIntent(cartItems))
-				await router.push('/checkout')
+				if (!clientSecret) {
+					const order = await createOrder(cartItems)
+					const secret = await getOrderSecret(order.id)
+					if (!secret.clientSecret) {
+						throw new Error('Could not get clientSecret')
+					}
+					setClientSecret(secret.clientSecret)
+					await router.push('/checkout')
+				}
 			} catch (exception) {
 				console.error(exception)
 			} finally {

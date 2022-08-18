@@ -1,100 +1,61 @@
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import React, { FormEvent, useEffect, useState } from 'react'
+import { Order, PaymentIntent, StripeError } from '@stripe/stripe-js'
+import React, { FormEvent, useState } from 'react'
 
 export function CheckoutForm() {
 	const stripe = useStripe()
 	const elements = useElements()
 
-	const [message, setMessage] = useState('')
-	const [isLoading, setIsLoading] = useState(false)
+	const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-	useEffect(() => {
-		if (!stripe) {
-			return
-		}
-
-		const clientSecret = new URLSearchParams(window.location.search).get(
-			'payment_intent_client_secret',
-		)
-
-		if (!clientSecret) {
-			return
-		}
-
-		;(async () => {
-			const { paymentIntent } = await stripe.retrievePaymentIntent(
-				clientSecret,
-			)
-			switch (paymentIntent?.status) {
-				case 'succeeded':
-					setMessage('Payment succeeded!')
-					break
-				case 'processing':
-					setMessage('Your payment is processing.')
-					break
-				case 'requires_payment_method':
-					setMessage(
-						'Your payment was not successful, please try again.',
-					)
-					break
-				default:
-					setMessage('Something went wrong.')
-					break
-			}
-		})()
-	}, [stripe])
-
-	const handleSubmit = (event: FormEvent) => {
+	const handleSubmitOrder = (event: FormEvent) => {
+		// We don't want to let default form submission happen here,
+		// which would refresh the page.
 		event.preventDefault()
-
-		if (!stripe || !elements) {
-			// Stripe.js has not yet loaded.
-			// Make sure to disable form submission until Stripe.js has loaded.
-			return
-		}
-
-		setIsLoading(true)
 		;(async () => {
-			const { error } = await stripe.confirmPayment({
+			if (!stripe || !elements) {
+				// Stripe.js has not yet loaded.
+				// Make sure to disable form submission until Stripe.js has loaded.
+				return
+			}
+
+			const result = (await stripe.processOrder({
+				//`Elements` instance that was used to create the Payment Element
 				elements,
 				confirmParams: {
-					// Make sure to change this to your payment completion page
-					return_url: 'http://localhost:3000',
+					return_url: 'https://my-site.com/order/123/status',
 				},
-			})
+			})) as { error: StripeError } | { order: Order }
 
-			// This point will only be reached if there is an immediate error when
-			// confirming the payment. Otherwise, your customer will be redirected to
-			// your `return_url`. For some payment methods like iDEAL, your customer will
-			// be redirected to an intermediate site first to authorize the payment, then
-			// redirected to the `return_url`.
-			if (
-				error.type === 'card_error' ||
-				error.type === 'validation_error'
-			) {
-				setMessage(error.message ?? 'undefined stripe error.')
+			// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+			if ('error' in result && !!result.error) {
+				// This point will only be reached if there is an immediate error when
+				// confirming the payment. Show error to your customer (e.g., payment
+				// details incomplete)
+				setErrorMessage(
+					result.error.message ?? 'there was an error with stripe',
+				)
 			} else {
-				setMessage('An unexpected error occurred.')
+				if (
+					(result as { order: Order }).order.payment.status ===
+					('complete' as PaymentIntent.Status)
+				) {
+					// Show a success message to your customer
+					// There's a risk of the customer closing the window before callback
+					// execution. Set up a webhook or plugin to listen for the
+					// payment_intent.succeeded event that handles any business critical
+					// post-payment actions.
+				}
 			}
-
-			setIsLoading(false)
 		})()
 	}
 
 	return (
-		<form id="payment-form" onSubmit={handleSubmit}>
-			<PaymentElement id="payment-element" />
-			<button disabled={isLoading || !stripe || !elements} id="submit">
-				<span id="button-text">
-					{isLoading ? (
-						<div className="spinner" id="spinner"></div>
-					) : (
-						'Pay now'
-					)}
-				</span>
-			</button>
-			{/* Show any error or success messages */}
-			{message && <div id="payment-message">{message}</div>}
+		<form onSubmit={handleSubmitOrder}>
+			<PaymentElement />
+			<button disabled={!stripe}>Submit</button>
+			{/* Show error message to your customers */}
+			{errorMessage && <div>{errorMessage}</div>}
 		</form>
 	)
 }

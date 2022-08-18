@@ -1,6 +1,6 @@
 article#cart {
 	button.checkout {
-		@apply bg-black text-white /* mb-4 */ -mb-14 w-max px-4 py-2 mx-auto;
+		@apply relative z-10 bg-black text-white /* mb-4 */ -mb-14 w-max px-4 py-2 mx-auto;
 
 		svg {
 			@apply inline-block h-2 w-auto ml-4;
@@ -29,6 +29,10 @@ article#cart {
 	}
 
 	#items {
+		>* {
+			@apply h-max;
+		}
+
 		button {
 			@apply bg-black text-white w-6 py-0;
 
