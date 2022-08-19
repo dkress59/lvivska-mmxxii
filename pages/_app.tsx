@@ -1,18 +1,43 @@
 import '../styles/globals.scss'
 
+import moment from 'moment'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
+import { AgeVerification } from '../components/age-verifictaion'
 import { Navigation } from '../components/navigation'
+import {
+	LOCAL_STORAGE,
+	localDateFormat,
+	WEEK_IN_MILLISECONDS,
+} from '../util/constants'
 import { CartContextProvider } from '../util/context'
 import { getActiveClassName } from '../util/util'
 
 function NextApp({ Component, pageProps }: AppProps) {
+	const [initialRender, setInitialRender] = useState(true)
 	const [initialMainHeight, setInitialMainHeight] = useState(0)
+	const [ageVerified, setAgeVerified] = useState(
+		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+		!!global.window &&
+			!!localStorage.getItem(LOCAL_STORAGE.AGE_VERIFIED) &&
+			moment(new Date()).diff(
+				moment(
+					localStorage.getItem(LOCAL_STORAGE.DATE_AGE_VERIFIED),
+					localDateFormat,
+				),
+			) /
+				WEEK_IN_MILLISECONDS <
+				4,
+	)
 	const { asPath } = useRouter()
+
+	useEffect(() => {
+		setInitialRender(false)
+	}, [])
 
 	return (
 		<>
@@ -41,6 +66,10 @@ function NextApp({ Component, pageProps }: AppProps) {
 						Impressum &amp; Datenschutz
 					</Link>
 				</footer>
+				<AgeVerification
+					active={!initialRender && !ageVerified}
+					{...{ setAgeVerified }}
+				/>
 			</CartContextProvider>
 		</>
 	)

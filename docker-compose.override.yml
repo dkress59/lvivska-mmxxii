@@ -4,6 +4,7 @@ services:
     build:
       target: dev-image
     volumes:
+      - ./.yarn:/lvivska/.yarn
       - ./components:/lvivska/components
       - ./pages:/lvivska/pages
       - ./public:/lvivska/public
