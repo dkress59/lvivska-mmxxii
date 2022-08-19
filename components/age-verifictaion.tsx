@@ -9,6 +9,13 @@ import {
 import { StateSetter } from '../util/types'
 import { DateInput } from './date-input'
 
+function is18orOlder(birthday: string): boolean {
+	const age =
+		moment(new Date()).diff(moment(birthday, localDateFormat)) /
+		YEAR_IN_MILLISECONDS
+	return Math.floor(age) > 17
+}
+
 export function AgeVerification({
 	active,
 	setAgeVerified,
@@ -19,10 +26,7 @@ export function AgeVerification({
 	const [birthday, setBirthday] = useState('')
 
 	useEffect(() => {
-		const age =
-			moment(new Date()).diff(moment(birthday, localDateFormat)) /
-			YEAR_IN_MILLISECONDS
-		if (Math.floor(age) > 17) {
+		if (is18orOlder(birthday)) {
 			localStorage.setItem(LOCAL_STORAGE.AGE_VERIFIED, 'true')
 			localStorage.setItem(
 				LOCAL_STORAGE.DATE_AGE_VERIFIED,
