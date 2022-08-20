@@ -15,7 +15,10 @@
  * Use it to make something cool, have fun, and share what you've learned with others.
  */
 
+require_once dirname(__FILE__) . '/inc/custom-rest.php';
+
 LvivskaPlugin::instance();
+CustomRest::instance();
 
 class LvivskaPlugin {
 	private static ?self $instance = null;
