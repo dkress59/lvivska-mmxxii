@@ -126,3 +126,9 @@ export interface OrderCreateBody {
 	shippingAddress: AddressState
 	billingAddress: null | AddressState
 }
+
+export interface WPSettings {
+	mwst: number
+	shippingRate: number
+	freeShippingFrom: number
+}

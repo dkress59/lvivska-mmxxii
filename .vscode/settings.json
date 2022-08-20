@@ -1,5 +1,5 @@
 {
-	"cSpell.language": ["de,en"],
+	"cSpell.language": "de,en-US,en-GB",
 	"cSpell.words": ["lvivska", "LVIVSKA"],
 	"editor.codeActionsOnSave": {
 		"source.fixAll": true

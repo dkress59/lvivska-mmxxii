@@ -116,11 +116,11 @@ export async function getOrderSecret(
 	return <{ clientSecret: string | null }>await response.json()
 }
 
-export async function submitOrder(order: Stripe.Order): Promise<unknown> {
-	const response = await fetch('/api/order/submit', {
+export async function finaliseOrder(orderId: string): Promise<unknown> {
+	const response = await fetch('/api/order/finalise', {
 		method: 'POST',
 		headers: jsonHeader,
-		body: JSON.stringify({ order }),
+		body: JSON.stringify({ orderId }),
 	})
 
 	return <unknown>await response.json()
