@@ -69,7 +69,7 @@
 
 				&.page,
 				&.product {
-					@apply w-1/2 h-max;
+					@apply w-1/2 h-max max-w-xl mx-auto;
 				}
 			}
 		} // screen desktop
