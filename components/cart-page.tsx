@@ -1,7 +1,5 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { Fragment, useState } from 'react'
-import { ThreeDots } from 'react-loading-icons'
+import { Fragment } from 'react'
 
 import { useCart } from '../util/hooks'
 import { CartProps, CustomWPMedia, WPProduct } from '../util/types'
@@ -9,9 +7,7 @@ import {
 	cartItemsToNetto,
 	cartItemsToTax,
 	cartItemsToTotal,
-	createOrder,
 	getImgSrcSet,
-	getOrderSecret,
 } from '../util/util'
 
 function getImageForProduct({
@@ -25,36 +21,7 @@ function getImageForProduct({
 }
 
 export function CartPage({ media, products }: CartProps) {
-	const [isLoading, setIsLoading] = useState(false)
-	const {
-		cartItems,
-		clientSecret,
-		setClientSecret,
-		addToCart,
-		removeFromCart,
-	} = useCart(products)
-	const router = useRouter()
-
-	function onProceedToCheckout() {
-		setIsLoading(true)
-		;(async () => {
-			try {
-				if (!clientSecret) {
-					const order = await createOrder(cartItems)
-					const secret = await getOrderSecret(order.id)
-					if (!secret.clientSecret) {
-						throw new Error('Could not get clientSecret')
-					}
-					setClientSecret(secret.clientSecret)
-					await router.push('/checkout')
-				}
-			} catch (exception) {
-				console.error(exception)
-			} finally {
-				setIsLoading(false)
-			}
-		})()
-	}
+	const { cartItems, addToCart, removeFromCart } = useCart(products)
 
 	if (!cartItems.length)
 		return (
@@ -119,13 +86,9 @@ export function CartPage({ media, products }: CartProps) {
 					)
 				})}
 			</section>
-			<button
-				className="checkout"
-				disabled={isLoading}
-				onClick={onProceedToCheckout}
-			>
-				Jetzt bestellen{isLoading && <ThreeDots />}
-			</button>
+			<Link href="/checkout" passHref>
+				<a className="checkout">Jetzt bestellen</a>
+			</Link>
 			<section id="summary">
 				<aside>
 					<p>Netto:</p>

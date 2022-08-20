@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { Stripe } from 'stripe'
 
 import { STRIPE_SECRET_KEY } from '../../../util/constants'
-import { CartItem } from '../../../util/types'
+import { OrderCreateBody } from '../../../util/types'
 import { getAllImages } from '../../../util/util'
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, {
@@ -15,7 +15,11 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,
 ) {
-	const { cartItems } = <{ cartItems: CartItem[] }>req.body
+	const { cartItems, shippingAddress, billingAddress } = <OrderCreateBody>(
+		req.body
+	)
+	const finalBillingAddress = billingAddress ?? shippingAddress
+
 	const media = await getAllImages()
 
 	const lineItems: Stripe.OrderCreateParams.LineItem[] = cartItems.map(
@@ -56,26 +60,26 @@ export default async function handler(
 			},
 			billing_details: {
 				address: {
-					city: 'Leipzig',
+					city: finalBillingAddress.city,
 					country: 'DE',
-					line1: 'Eisenbahnstraße 131',
-					postal_code: '04315',
-					state: 'NW',
+					line1: finalBillingAddress.line1,
+					postal_code: finalBillingAddress.postalCode,
+					state: finalBillingAddress.state,
 				},
-				email: 'mail@damiankress.de',
-				name: 'Damian Kress',
-				phone: '+4915771724215',
+				email: finalBillingAddress.email,
+				name: `${finalBillingAddress.firstName} ${finalBillingAddress.lastName}`,
+				phone: finalBillingAddress.phone,
 			},
 			shipping_details: {
 				address: {
-					city: 'Leipzig',
+					city: shippingAddress.city,
 					country: 'DE',
-					line1: 'Eisenbahnstraße 131',
-					postal_code: '04315',
-					state: 'NW',
+					line1: shippingAddress.line1,
+					postal_code: shippingAddress.postalCode,
+					state: shippingAddress.state,
 				},
-				name: 'Damian Kress',
-				phone: '+4915771724215',
+				name: `${shippingAddress.firstName} ${shippingAddress.lastName}`,
+				phone: shippingAddress.phone,
 			},
 			shipping_cost: {
 				shipping_rate_data: {

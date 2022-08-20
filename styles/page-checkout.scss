@@ -8,4 +8,49 @@ article#checkout {
 	@screen mobile {
 		@apply pt-24;
 	}
+
+	h2 {
+		@apply text-3xl;
+	}
+
+	label {
+		@apply cursor-pointer block my-4;
+
+		input {
+			@apply inline-block mr-2;
+		}
+	}
+
+	section.address {
+		@apply grid grid-cols-2 gap-4;
+
+		.fill {
+			@apply col-span-full;
+		}
+
+		input,
+		select {
+			@apply border border-black px-4 py-2;
+		}
+	}
+
+	button {
+		@apply bg-black text-white mb-4 w-max px-4 py-2;
+
+		svg {
+			@apply inline-block h-2 w-auto ml-4;
+		}
+	}
+
+	.animation-wrapper {
+		@apply relative;
+	}
+
+	form {
+		@apply bg-white absolute -inset-1 zoom-in;
+
+		button {
+			@apply mt-4;
+		}
+	}
 }

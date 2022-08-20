@@ -29,25 +29,47 @@
 		}
 	}
 
-	.fade-in-left {
-		@apply transform-gpu;
+	@keyframes zoom-in {
+		0% {
+			@apply opacity-0 scale-90;
+		}
 
-		animation: fade-in-left 300ms ease-out forwards;
+		100% {
+			@apply opacity-100 scale-100;
+		}
+	}
+
+	.lvivska-transition {
+		@apply transform-gpu duration-300 ease-out;
+
+		animation-fill-mode: forwards;
+	}
+
+	.fade-in-left {
+		@apply lvivska-transition;
+
+		animation: fade-in-left;
 	}
 
 	.fade-in-bottom {
-		@apply transform-gpu;
+		@apply lvivska-transition;
 
-		animation: fade-in-bottom 300ms ease-out forwards;
+		animation: fade-in-bottom;
 	}
 
 	.fade-out-top {
-		@apply transform-gpu;
+		@apply lvivska-transition;
 
-		animation: fade-out-top 300ms ease-out forwards;
+		animation: fade-out-top;
 	}
-}
 
-.text-shadow {
-	text-shadow: 1px 1px 1px rgb(0 0 0 / 50%), 2px 4px 6px rgb(0 0 0 / 33%);
+	.zoom-in {
+		@apply lvivska-transition;
+
+		animation: zoom-in;
+	}
+
+	.text-shadow {
+		text-shadow: 1px 1px 1px rgb(0 0 0 / 50%), 2px 4px 6px rgb(0 0 0 / 33%);
+	}
 }

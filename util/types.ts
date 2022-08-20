@@ -104,3 +104,25 @@ export interface CartItem {
 	product: WPProduct
 	quantity: number
 }
+
+export interface AddressState {
+	city: string
+	line1: string
+	postalCode: string
+	state: string
+	email: string
+	firstName: string
+	lastName: string
+	phone: string
+}
+
+export interface AddressFromProps {
+	forBilling?: boolean
+	setAddressState: StateSetter<null | AddressState>
+}
+
+export interface OrderCreateBody {
+	cartItems: CartItem[]
+	shippingAddress: AddressState
+	billingAddress: null | AddressState
+}

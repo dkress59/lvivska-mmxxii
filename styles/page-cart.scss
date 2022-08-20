@@ -1,10 +1,6 @@
 article#cart {
-	button.checkout {
+	a.checkout {
 		@apply relative z-10 bg-black text-white /* mb-4 */ -mb-14 w-max px-4 py-2 mx-auto;
-
-		svg {
-			@apply inline-block h-2 w-auto ml-4;
-		}
 	}
 
 	#summary {
@@ -97,7 +93,7 @@ article#cart {
 			}
 		}
 
-		button.checkout {
+		a.checkout {
 			@apply block mx-auto my-8;
 		}
 	}

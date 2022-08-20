@@ -1,7 +1,7 @@
 import Stripe from 'stripe'
 
 import { CmsClient } from './cms-client'
-import { CartItem, CustomWPMedia } from './types'
+import { CartItem, CustomWPMedia, OrderCreateBody } from './types'
 
 const cmsClient = new CmsClient()
 
@@ -90,13 +90,15 @@ export function getImgSrcSet(image: CustomWPMedia): string {
 	return srcSet.join(', ')
 }
 
-export async function createOrder(
-	cartItems: CartItem[],
-): Promise<Stripe.Response<Stripe.Order>> {
+export async function createOrder({
+	cartItems,
+	shippingAddress,
+	billingAddress,
+}: OrderCreateBody): Promise<Stripe.Response<Stripe.Order>> {
 	const response = await fetch('/api/order/create', {
 		method: 'POST',
 		headers: jsonHeader,
-		body: JSON.stringify({ cartItems }),
+		body: JSON.stringify({ cartItems, shippingAddress, billingAddress }),
 	})
 
 	return <Stripe.Response<Stripe.Order>>await response.json()
