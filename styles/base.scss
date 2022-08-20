@@ -26,6 +26,16 @@
 				@apply mt-2;
 			}
 		}
+
+		&#payment {
+			&-success {
+				@apply w-full;
+
+				h1 {
+					@apply text-center;
+				}
+			}
+		}
 	}
 
 	main {

@@ -2,6 +2,8 @@ import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { Order, PaymentIntent, StripeError } from '@stripe/stripe-js'
 import React, { FormEvent, useState } from 'react'
 
+import { NEXT_PUBLIC_URL } from '../util/constants'
+
 export function CheckoutForm() {
 	const stripe = useStripe()
 	const elements = useElements()
@@ -23,7 +25,7 @@ export function CheckoutForm() {
 				//`Elements` instance that was used to create the Payment Element
 				elements,
 				confirmParams: {
-					return_url: 'https://my-site.com/order/123/status',
+					return_url: `${NEXT_PUBLIC_URL}/payment-successful`,
 				},
 			})) as { error: StripeError } | { order: Order }
 
