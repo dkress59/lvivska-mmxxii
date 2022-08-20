@@ -1,18 +1,14 @@
 {
-  "cSpell.language": [
-    "de,en"
-  ],
-  "cSpell.words": [
-    "LVIVSKA"
-  ],
-  "editor.codeActionsOnSave": {
-    "source.fixAll": true
-  },
-  "search.exclude": {
-    "**/.yarn": true,
-    "**/.pnp.*": true
-  },
-  "eslint.nodePath": ".yarn/sdks",
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+	"cSpell.language": ["de,en"],
+	"cSpell.words": ["lvivska", "LVIVSKA"],
+	"editor.codeActionsOnSave": {
+		"source.fixAll": true
+	},
+	"search.exclude": {
+		"**/.yarn": true,
+		"**/.pnp.*": true
+	},
+	"eslint.nodePath": ".yarn/sdks",
+	"typescript.tsdk": ".yarn/sdks/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true
 }

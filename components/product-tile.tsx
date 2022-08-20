@@ -17,6 +17,7 @@ export function ProductTile({
 			<Link href={`/products/${product.slug}`} passHref>
 				<a>
 					<h2>{product.title.rendered}</h2>
+					<h3>{product.acf.subtitle}</h3>
 					<img
 						src={image.source_url}
 						alt={image.alt_text}
