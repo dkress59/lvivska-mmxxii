@@ -31,6 +31,10 @@ article#checkout {
 		input,
 		select {
 			@apply border border-black px-4 py-2;
+
+			&.invalid {
+				@apply border-orange-400 outline-orange-400;
+			}
 		}
 	}
 
@@ -47,10 +51,14 @@ article#checkout {
 	}
 
 	form {
-		@apply bg-white absolute -inset-1 zoom-in;
+		@apply bg-white absolute z-10 -inset-1 zoom-in;
 
 		button {
 			@apply mt-4;
 		}
+	}
+
+	aside#sending {
+		@apply absolute z-30 -inset-1 bg-white bg-opacity-75 flex items-center justify-center;
 	}
 }

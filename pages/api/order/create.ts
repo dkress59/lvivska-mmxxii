@@ -102,11 +102,6 @@ export default async function handler(
 					tax_behavior: 'inclusive',
 				},
 			},
-			/* payment: {
-			settings: {
-				return_url: ,
-			},
-		}, */
 		})
 
 		res.status(201).json(order)

@@ -15,6 +15,7 @@ function reportValidity(
 	isValid: boolean,
 ): boolean {
 	if (element && !element.validity.valid) {
+		element.classList.add('invalid')
 		element.reportValidity()
 		return false
 	}
@@ -37,7 +38,7 @@ function validateForms(billingIsShipping: boolean): boolean {
 		'.shipping.address [name="phone"]',
 	)
 	const line1InputShipping = document.querySelector<HTMLInputElement>(
-		'.shipping.address [name="line1"]',
+		'.shipping.address [name="streetAndNumber"]',
 	)
 	const postalCodeInputShipping = document.querySelector<HTMLInputElement>(
 		'.shipping.address [name="postalCode"]',
@@ -62,7 +63,7 @@ function validateForms(billingIsShipping: boolean): boolean {
 		'.billing.address [name="phone"]',
 	)
 	const line1InputBilling = document.querySelector<HTMLInputElement>(
-		'.billing.address [name="line1"]',
+		'.billing.address [name="streetAndNumber"]',
 	)
 	const postalCodeInputBilling = document.querySelector<HTMLInputElement>(
 		'.billing.address [name="postalCode"]',
@@ -99,6 +100,7 @@ function validateForms(billingIsShipping: boolean): boolean {
 
 export function CheckoutPage({ products }: { products: WPProduct[] }) {
 	const [isLoading, setIsLoading] = useState(false)
+	const [isSending, setIsSending] = useState(false)
 	const [billingIsShipping, setBillingIsShipping] = useState(true)
 	const [shippingAddress, setShippingAddress] = useState<null | AddressState>(
 		null,
@@ -186,8 +188,13 @@ export function CheckoutPage({ products }: { products: WPProduct[] }) {
 						}}
 						stripe={stripePromise}
 					>
-						<CheckoutForm />
+						<CheckoutForm {...{ setIsSending }} />
 					</Elements>
+				)}
+				{isSending && (
+					<aside id="sending">
+						<ThreeDots fill="#000" />
+					</aside>
 				)}
 			</div>
 		</article>

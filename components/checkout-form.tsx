@@ -1,19 +1,27 @@
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { Order, PaymentIntent, StripeError } from '@stripe/stripe-js'
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useContext, useState } from 'react'
 
 import { NEXT_PUBLIC_URL } from '../util/constants'
+import { CartContext } from '../util/context'
+import { StateSetter } from '../util/types'
 
-export function CheckoutForm() {
+export function CheckoutForm({
+	setIsSending,
+}: {
+	setIsSending: StateSetter<boolean>
+}) {
 	const stripe = useStripe()
 	const elements = useElements()
 
+	const { setCartItems } = useContext(CartContext)
 	const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
 	const handleSubmitOrder = (event: FormEvent) => {
 		// We don't want to let default form submission happen here,
 		// which would refresh the page.
 		event.preventDefault()
+		setIsSending(true)
 		;(async () => {
 			if (!stripe || !elements) {
 				// Stripe.js has not yet loaded.
@@ -47,8 +55,10 @@ export function CheckoutForm() {
 					// execution. Set up a webhook or plugin to listen for the
 					// payment_intent.succeeded event that handles any business critical
 					// post-payment actions.
+					setCartItems([])
 				}
 			}
+			setIsSending(false)
 		})()
 	}
 

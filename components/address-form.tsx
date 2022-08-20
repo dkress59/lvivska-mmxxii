@@ -73,24 +73,24 @@ export function AddressForm({
 	forBilling = false,
 	setAddressState,
 }: AddressFromProps) {
-	const [city, setCity] = useState('')
-	const [line1, setLine1] = useState('')
-	const [postalCode, setPostalCode] = useState('')
-	const [state, setState] = useState('')
-	const [email, setEmail] = useState('')
 	const [firstName, setFirstName] = useState('')
 	const [lastName, setLastName] = useState('')
+	const [email, setEmail] = useState('')
 	const [phone, setPhone] = useState('')
+	const [line1, setLine1] = useState('')
+	const [postalCode, setPostalCode] = useState('')
+	const [city, setCity] = useState('')
+	const [state, setState] = useState('')
 
 	useEffect(() => {
-		if (!city) return setAddressState(null)
-		if (!line1) return setAddressState(null)
-		if (!postalCode) return setAddressState(null)
-		if (!state) return setAddressState(null)
-		if (!email) return setAddressState(null)
 		if (!firstName) return setAddressState(null)
 		if (!lastName) return setAddressState(null)
+		if (!email) return setAddressState(null)
 		if (!phone) return setAddressState(null)
+		if (!line1) return setAddressState(null)
+		if (!city) return setAddressState(null)
+		if (!postalCode) return setAddressState(null)
+		if (!state) return setAddressState(null)
 
 		setAddressState({
 			city,
@@ -174,6 +174,7 @@ export function AddressForm({
 				value={state}
 				onChange={event => setState(event.target.value)}
 				placeholder="Bundesland"
+				required
 			>
 				<option value="" disabled>
 					Bundesland
