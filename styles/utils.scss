@@ -41,32 +41,30 @@
 
 	.lvivska-transition {
 		@apply transform-gpu duration-300 ease-out;
-
-		animation-fill-mode: forwards;
 	}
 
 	.fade-in-left {
 		@apply lvivska-transition;
 
-		animation: fade-in-left;
+		animation: fade-in-left 0.3s ease-out forwards;
 	}
 
 	.fade-in-bottom {
 		@apply lvivska-transition;
 
-		animation: fade-in-bottom;
+		animation: fade-in-bottom 0.3s ease-out forwards;
 	}
 
 	.fade-out-top {
 		@apply lvivska-transition;
 
-		animation: fade-out-top;
+		animation: fade-out-top 0.3s ease-out forwards;
 	}
 
 	.zoom-in {
 		@apply lvivska-transition;
 
-		animation: zoom-in;
+		animation: zoom-in 0.6s ease-out forwards;
 	}
 
 	.text-shadow {
