@@ -30,6 +30,6 @@ jobs:
           git pull
           yarn
           yarn build
-          yarn start -p LV_PORT &
+          PORT=$LV_PORT yarn start &
           EOT
 
