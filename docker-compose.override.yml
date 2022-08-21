@@ -13,8 +13,8 @@ services:
       - ./tailwind.config.js:/lvivska/tailwind.config.js
 
   phpmyadmin:
-    deploy:
-      replicas: 0 # comment-out to use this
+    #deploy:
+    #  replicas: 0 # comment-out to use this
     container_name: lvivska-phpmyadmin
     image: phpmyadmin/phpmyadmin:latest
     depends_on:

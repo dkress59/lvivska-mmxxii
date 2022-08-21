@@ -42,6 +42,11 @@ class CustomRest {
 			'callback' => [$this, 'decrease_stock'],
 			'permission_callback' => '__return_true',
 		]);
+		register_rest_route('lvivska/v1', 'order', [
+			'methods' => 'POST',
+			'callback' => [$this, 'store_order'],
+			'permission_callback' => '__return_true',
+		]);
 	}
 
 	public function get_settings(): WP_REST_Response {
@@ -79,5 +84,34 @@ class CustomRest {
 			'productId' => $product_id,
 			'stock' => $updated_stock,
 		]);
+	}
+
+	public function store_order(WP_REST_Request $request): WP_REST_Response | WP_Error {
+		$parameters = $request->get_json_params();
+		if (!isset($parameters['order'])) {
+			return new WP_Error(400, "'order' parameter missing.", ['status' => 400]);
+		}
+
+		$order = json_encode($parameters['order']);
+		$env = $parameters['env'] ?: 'development';
+
+		$db_url = getenv('LVIVSKA_DB_URL');
+
+		$connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		if (!$connection) return new WP_Error(500, 'Could not connect to orders-db.');
+
+		$sql = "INSERT INTO lvivska_orders (shop_order, env) VALUES ('$order', '$env')";
+		$success = mysqli_query($connection, $sql);
+		mysqli_close($connection);
+
+		if ($success) return new WP_REST_Response([
+			['message' => ['success' => true]],
+			'data' => [
+				'order' => $order,
+				'env' => $env,
+			]
+		]);
+
+		return new WP_Error(500, ['success' => false], ['status' => 500, 'order' => $order, 'env' => 'env',]);
 	}
 }
