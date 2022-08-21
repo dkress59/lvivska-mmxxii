@@ -1,7 +1,7 @@
 import WpApiClient, { DefaultEndpointWithRevision } from 'wordpress-api-client'
 
 import { CMS_URL } from './constants'
-import { WPProduct, WPSettings } from './types'
+import { StoredOrder, WPProduct, WPSettings } from './types'
 
 export class CmsClient extends WpApiClient {
 	constructor() {
@@ -27,4 +27,9 @@ export class CmsClient extends WpApiClient {
 		>('lvivska/v1/stock')
 		return method(body)
 	}
+
+	public storeOrder = this.createEndpointCustomPost<
+		{ order: StoredOrder; env: 'development' | 'production' },
+		{ message: { success: boolean }; data: unknown }
+	>('lvivska/v1/order')
 }

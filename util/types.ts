@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
+import Stripe from 'stripe'
 import { WPMedia, WPPage } from 'wordpress-api-client'
 
 export type WPProduct = WPPage<{
@@ -126,6 +127,7 @@ export interface OrderCreateBody {
 	cartItems: CartItem[]
 	shippingAddress: AddressState
 	billingAddress: null | AddressState
+	settings: WPSettings
 }
 
 export interface WPSettings {
@@ -133,3 +135,5 @@ export interface WPSettings {
 	shippingRate: number
 	freeShippingFrom: number
 }
+
+export type StoredOrder = Stripe.Order & { lineItems: Stripe.LineItem[] }

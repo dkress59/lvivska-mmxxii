@@ -109,9 +109,11 @@ export function CheckoutPage({ products }: { products: WPProduct[] }) {
 	const [billingAddress, setBillingAddress] = useState<null | AddressState>(
 		null,
 	)
-	const { cartItems, clientSecret, setClientSecret } = useCart(products)
+	const { cartItems, clientSecret, setClientSecret, settings } =
+		useCart(products)
 	const [stripePromise, setStripePromise] = useState<null | Stripe>(null)
 
+	// eslint-disable-next-line sonarjs/cognitive-complexity
 	function onProceedToPayment() {
 		if (validateForms(billingIsShipping)) {
 			setIsLoading(true)
@@ -126,11 +128,13 @@ export function CheckoutPage({ products }: { products: WPProduct[] }) {
 							apiVersion: '2022-08-01; orders_beta=v4',
 						}),
 					)
+					if (!settings) return // throw error
 					if (!clientSecret) {
 						const order = await createOrder({
 							cartItems,
 							shippingAddress,
 							billingAddress,
+							settings,
 						})
 						const secret = await getOrderSecret(order.id)
 						if (!secret.clientSecret) {

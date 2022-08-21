@@ -2,7 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { Stripe } from 'stripe'
 
 import { CmsClient } from '../../../util/cms-client'
-import { STRIPE_SECRET_KEY } from '../../../util/constants'
+import { NODE_ENV, STRIPE_SECRET_KEY } from '../../../util/constants'
+import { StoredOrder } from '../../../util/types'
 import { getAllProducts } from '../../../util/util'
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, {
@@ -19,7 +20,10 @@ export default async function handler(
 ) {
 	const { orderId } = <{ orderId: string }>req.body
 
-	const { data: lineItems } = await stripe.orders.listLineItems(orderId)
+	const [{ data: lineItems }, order] = await Promise.all([
+		stripe.orders.listLineItems(orderId),
+		stripe.orders.retrieve(orderId),
+	])
 
 	res.status(200).json(lineItems)
 
@@ -37,4 +41,10 @@ export default async function handler(
 			})
 		}),
 	)
+
+	const orderToStore: StoredOrder = {
+		...order,
+		lineItems,
+	}
+	await cmsClient.storeOrder({ order: orderToStore, env: NODE_ENV })
 }

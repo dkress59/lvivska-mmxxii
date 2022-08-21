@@ -1,7 +1,13 @@
 import Stripe from 'stripe'
 
 import { CmsClient } from './cms-client'
-import { CartItem, CustomWPMedia, OrderCreateBody, WPSettings } from './types'
+import {
+	CartItem,
+	CustomWPMedia,
+	OrderCreateBody,
+	StoredOrder,
+	WPSettings,
+} from './types'
 
 const cmsClient = new CmsClient()
 
@@ -101,14 +107,27 @@ export async function createOrder({
 	cartItems,
 	shippingAddress,
 	billingAddress,
+	settings,
 }: OrderCreateBody): Promise<Stripe.Response<Stripe.Order>> {
 	const response = await fetch('/api/order/create', {
 		method: 'POST',
 		headers: jsonHeader,
-		body: JSON.stringify({ cartItems, shippingAddress, billingAddress }),
+		body: JSON.stringify({
+			cartItems,
+			shippingAddress,
+			billingAddress,
+			settings,
+		}),
 	})
 
 	return <Stripe.Response<Stripe.Order>>await response.json()
+}
+
+export async function storeOrder(body: {
+	order: StoredOrder
+	env: 'development' | 'production'
+}) {
+	return cmsClient.storeOrder(body)
 }
 
 export async function getOrderSecret(

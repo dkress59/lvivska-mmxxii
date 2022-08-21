@@ -3,11 +3,7 @@ import { Stripe } from 'stripe'
 
 import { STRIPE_SECRET_KEY } from '../../../util/constants'
 import { OrderCreateBody } from '../../../util/types'
-import {
-	getAllImages,
-	getAllSettings,
-	getShippingRate,
-} from '../../../util/util'
+import { getAllImages, getShippingRate } from '../../../util/util'
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, {
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -19,15 +15,12 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,
 ) {
-	const { cartItems, shippingAddress, billingAddress } = <OrderCreateBody>(
-		req.body
-	)
+	const { cartItems, shippingAddress, billingAddress, settings } = <
+		OrderCreateBody
+	>req.body
 	const finalBillingAddress = billingAddress ?? shippingAddress
 
-	const [media, settings] = await Promise.all([
-		getAllImages(),
-		getAllSettings(),
-	])
+	const media = await getAllImages()
 
 	const lineItems: Stripe.OrderCreateParams.LineItem[] = cartItems.map(
 		({ quantity, product }) => ({
