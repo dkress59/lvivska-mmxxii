@@ -47,6 +47,11 @@ class CustomRest {
 			'callback' => [$this, 'store_order'],
 			'permission_callback' => '__return_true',
 		]);
+		register_rest_route('lvivska/v1', 'order', [
+			'methods' => 'GET',
+			'callback' => [$this, 'read_orders'],
+			'permission_callback' => '__return_true',
+		]);
 	}
 
 	public function get_settings(): WP_REST_Response {
@@ -95,8 +100,6 @@ class CustomRest {
 		$order = json_encode($parameters['order']);
 		$env = $parameters['env'] ?: 'development';
 
-		$db_url = getenv('LVIVSKA_DB_URL');
-
 		$connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if (!$connection) return new WP_Error(500, 'Could not connect to orders-db.');
 
@@ -105,11 +108,29 @@ class CustomRest {
 		mysqli_close($connection);
 
 		if ($success) return new WP_REST_Response([
-			['message' => ['success' => true]],
+			'message' => ['success' => true],
 			'data' => [
 				'order' => $order,
 				'env' => $env,
-			]
+			],
+		]);
+
+		return new WP_Error(500, ['success' => false], ['status' => 500, 'order' => $order, 'env' => 'env',]);
+	}
+
+	public function read_orders(WP_REST_Request $request): WP_REST_Response | WP_Error {
+		$connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		if (!$connection) return new WP_Error(500, 'Could not connect to orders-db.');
+
+		$sql = "SELECT * FROM lvivska_orders";
+		$success = mysqli_query($connection, $sql);
+		mysqli_close($connection);
+
+		if ($success) return new WP_REST_Response([
+			'message' => ['success' => true],
+			'data' => [
+				'orders' => $success->fetch_all(MYSQLI_ASSOC),
+			],
 		]);
 
 		return new WP_Error(500, ['success' => false], ['status' => 500, 'order' => $order, 'env' => 'env',]);
