@@ -1,5 +1,6 @@
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe, Stripe } from '@stripe/stripe-js'
+import Link from 'next/link'
 import { useState } from 'react'
 import { ThreeDots } from 'react-loading-icons'
 
@@ -149,7 +150,17 @@ export function CheckoutPage({ products }: { products: WPProduct[] }) {
 
 	return (
 		<article id="checkout">
-			<h1>Checkout</h1>
+			<h1>
+				Checkout
+				<small id="legal">
+					<Link href="/agb" passHref>
+						<a>AGB</a>
+					</Link>
+					<Link href="/widerruf" passHref>
+						<a>Widerrufsrecht</a>
+					</Link>
+				</small>
+			</h1>
 			<br />
 			<div className="animation-wrapper">
 				<AddressForm setAddressState={setShippingAddress} />

@@ -25,7 +25,6 @@ class CustomRest {
 		$origin = $app_url && str_contains($_SERVER['HTTP_ORIGIN'], $app_url)
 			? $app_url
 			: $cms_url;
-		header_remove('Access-Control-Allow-Origin');
 		header('Access-Control-Allow-Origin: ' . $origin);
 		header('Access-Control-Allow-Methods: HEAD, OPTIONS, GET, POST');
 

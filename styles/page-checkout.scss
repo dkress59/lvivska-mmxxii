@@ -9,6 +9,28 @@ article#checkout {
 		@apply pt-24;
 	}
 
+	h1 {
+		@apply leading-none flex items-baseline justify-between;
+	}
+
+	#legal {
+		@apply font-sans text-xs mb-3;
+
+		a {
+			@apply px-2 py-1 border border-black opacity-25 lvivska-transition;
+
+			+a {
+				@apply border-l-0;
+			}
+
+			&:hover,
+			&:active,
+			&:focus {
+				@apply opacity-100 bg-black text-white;
+			}
+		}
+	}
+
 	h2 {
 		@apply text-3xl;
 	}
