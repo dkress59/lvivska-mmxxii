@@ -25,7 +25,7 @@ jobs:
           ssh-keyscan -H ${{ secrets.HOST_IP }} > ~/.ssh/known_hosts
       - name: Deploy to server
         run: |
-          cat <<'EOT' | ssh -p ${{ secrets.HOST_PORT }} ${{ secrets.HOST_USER }}@${{ secrets.HOST_IP }}
+          cat <<'EOT' | ssh ${{ secrets.HOST_USER }}@${{ secrets.HOST_IP }}
           cd ${{ secrets.DIRECTORY }}
           git pull
           yarn
