@@ -27,7 +27,7 @@ export default async function handler(
 			quantity,
 			product_data: {
 				name: product.title.rendered,
-				description: product.acf.subtitle,
+				description: `${product.title.rendered} — ${product.acf.subtitle}`,
 				images: [
 					media.find(image => image.id === product.featured_media)!
 						.source_url,

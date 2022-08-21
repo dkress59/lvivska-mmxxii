@@ -34,7 +34,8 @@ class AdminOrders {
 	public function add_orders_js() {
 		$current_screen = get_current_screen();
 		if ($current_screen->id === 'toplevel_page_orders') {
-			wp_enqueue_script('admin-orders', LV_PLUGIN_URL . 'assets/admin-orders.js');
+			wp_enqueue_style('admin-orders', LV_PLUGIN_URL . 'assets/admin-orders.css?hash=' . rand());
+			wp_enqueue_script('admin-orders', LV_PLUGIN_URL . 'assets/admin-orders.js?hash=' . rand());
 			wp_localize_script('admin-orders', 'auth', [
 				'nonce'      => wp_create_nonce('wp_rest'),
 			]);

@@ -1,0 +1,51 @@
+article {
+	margin-top: 1rem;
+}
+
+section.order {
+	padding: 1rem;
+	margin-top: 2rem;
+	background-color: #fff;
+}
+
+.order h2 {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	margin-top: 0;
+	font-size: 1.25rem;
+	line-height: 1;
+}
+
+.order h2 small {
+	font-size: 0.75rem;
+	font-weight: 400;
+}
+
+.order h3 {
+	margin-top: 0;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1;
+}
+
+.order aside {
+	text-align: right;
+}
+
+.order .item {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 1rem;
+	margin-bottom: 1rem;
+	background-color: #0001;
+	border: 1px solid #0002;
+}
+
+.order .item p {
+	margin: 0 2rem 0 0;
+}
+
+.order .item p + p {
+	margin-top: 1rem;
+}
