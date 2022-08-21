@@ -50,7 +50,9 @@ class CustomRest {
 		register_rest_route('lvivska/v1', 'order', [
 			'methods' => 'GET',
 			'callback' => [$this, 'read_orders'],
-			'permission_callback' => '__return_true',
+			'permission_callback' => function() {
+				return (current_user_can('delete_others_pages')); // Editor
+			},
 		]);
 	}
 

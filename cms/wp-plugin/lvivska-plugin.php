@@ -15,9 +15,13 @@
  * Use it to make something cool, have fun, and share what you've learned with others.
  */
 
+define('LV_PLUGIN_URL', plugin_dir_url(__FILE__));
+
+require_once dirname(__FILE__) . '/inc/admin-orders.php';
 require_once dirname(__FILE__) . '/inc/custom-rest.php';
 
 LvivskaPlugin::instance();
+AdminOrders::instance();
 CustomRest::instance();
 
 class LvivskaPlugin {
