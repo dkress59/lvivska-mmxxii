@@ -10,7 +10,12 @@ services:
       - '3000:3000'
     build:
       context: .
-      target: prod-image
+      target: production
+      args:
+        NEXT_PUBLIC_URL: ${NEXT_PUBLIC_URL}
+        NEXT_PUBLIC_CMS_URL: ${NEXT_PUBLIC_CMS_URL}
+        STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+        NEXT_PUBLIC_STRIPE_PUBLIC_KEY: ${NEXT_PUBLIC_STRIPE_PUBLIC_KEY}
     environment:
       NEXT_PUBLIC_URL: ${NEXT_PUBLIC_URL}
       NEXT_PUBLIC_CMS_URL: ${NEXT_PUBLIC_CMS_URL}

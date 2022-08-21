@@ -2,7 +2,7 @@ services:
 
   app:
     build:
-      target: dev-image
+      target: development
     volumes:
       - ./.yarn:/lvivska/.yarn
       - ./components:/lvivska/components

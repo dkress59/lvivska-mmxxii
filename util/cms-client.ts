@@ -5,6 +5,7 @@ import { StoredOrder, WPProduct, WPSettings } from './types'
 
 export class CmsClient extends WpApiClient {
 	constructor() {
+		if (!CMS_URL) throw new Error('CMS_URL is undefined.')
 		super(CMS_URL)
 	}
 

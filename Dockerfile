@@ -9,12 +9,17 @@ RUN yarn
 EXPOSE 3000
 
 
-FROM install as dev-image
+FROM install as development
 
 CMD yarn dev
 
 
-FROM install as prod-image
+FROM install as production
+
+ARG NEXT_PUBLIC_URL
+ARG NEXT_PUBLIC_CMS_URL
+ARG STRIPE_SECRET_KEY
+ARG NEXT_PUBLIC_STRIPE_PUBLIC_KEY
 
 RUN yarn build
 
