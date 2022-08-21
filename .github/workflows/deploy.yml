@@ -1,0 +1,39 @@
+name: "Build & Deploy"
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - "components/**"
+      - "pages/**"
+      - "public/**"
+      - "styles/**"
+      - "util/**"
+      - "yarn.lock"
+      - "Dockerfile"
+      - "docker-compose.yml"
+      - ".github/actions/**"
+      - ".github/workflows/build.yaml"
+
+jobs:
+
+  deploy-app:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: production
+      NEXT_PUBLIC_URL: ${{ secrets.NEXT_PUBLIC_URL }}
+      NEXT_PUBLIC_CMS_URL: ${{ secrets.NEXT_PUBLIC_CMS_URL }}
+      REVALIDATE_TOKEN: ${{ secrets.REVALIDATE_TOKEN }}
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+      NEXT_PUBLIC_STRIPE_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLIC_KEY }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: yarn
+      - name: Build App
+        run: yarn build
+      - name: Deploy App
+        run: sshpass -p "${{ secrets.PASSWORD }}" scp -r .next ${{ secrets.CONNECTION }}
+
