@@ -18,10 +18,20 @@ jobs:
       NEXT_PUBLIC_STRIPE_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLIC_KEY }}
     steps:
       - uses: actions/checkout@v2
-      - name: Install Dependencies
-        run: yarn
-      - name: Build App
-        run: yarn build
-      - name: Deploy App
-        run: sshpass -p "${{ secrets.PASSWORD }}" scp -r .next ${{ secrets.CONNECTION }}
+      - name: Create SSH key
+        shell: bash
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.HOST_IP }} > ~/.ssh/known_hosts
+      - name: Deploy to server
+        shell: bash
+        run: |
+          cat <<'EOT' | ssh -p ${{ secret.HOST_PORT }} ${{ secrets.HOST_USER }}@${{ secrets.HOST_IP }}
+          cd ${{ secrets.DIRECTORY }}
+          git pull
+          yarn
+          yarn build
+          PORT=LV_PORT yarn start
+          EOT
 
