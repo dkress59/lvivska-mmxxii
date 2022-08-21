@@ -4,18 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop
-    paths:
-      - "components/**"
-      - "pages/**"
-      - "public/**"
-      - "styles/**"
-      - "util/**"
-      - "yarn.lock"
-      - "Dockerfile"
-      - "docker-compose.yml"
-      - ".github/actions/**"
-      - ".github/workflows/build.yaml"
 
 jobs:
 
