@@ -1,7 +1,4 @@
-import WpApiClient, {
-	DefaultEndpointWithRevision,
-	EndpointFindOnly,
-} from 'wordpress-api-client'
+import WpApiClient, { DefaultEndpointWithRevision } from 'wordpress-api-client'
 
 import { CMS_URL } from './constants'
 import { WPProduct, WPSettings } from './types'
@@ -15,10 +12,9 @@ export class CmsClient extends WpApiClient {
 		return this.addPostType<WPProduct>('wp/v2/products', true)
 	}
 
-	public settings(): EndpointFindOnly<WPSettings> {
-		return this.createEndpointCustomGet<WPSettings>(
-			'lvivska/v1/settings',
-		) as EndpointFindOnly<WPSettings>
+	public async settings(): Promise<WPSettings> {
+		const response = await fetch(`${CMS_URL}/wp-json/lvivska/v1/settings`)
+		return <Promise<WPSettings>>response.json()
 	}
 
 	public reduceStock(body: { productId: number; quantity: number }) {

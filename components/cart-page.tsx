@@ -8,6 +8,7 @@ import {
 	cartItemsToTax,
 	cartItemsToTotal,
 	getImgSrcSet,
+	getShippingRate,
 } from '../util/util'
 
 function getImageForProduct({
@@ -21,7 +22,7 @@ function getImageForProduct({
 }
 
 export function CartPage({ media, products }: CartProps) {
-	const { cartItems, addToCart, removeFromCart } = useCart(products)
+	const { cartItems, addToCart, removeFromCart, settings } = useCart(products)
 
 	if (!cartItems.length)
 		return (
@@ -29,6 +30,8 @@ export function CartPage({ media, products }: CartProps) {
 				<h1>Ihr Warenkorb ist leer.</h1>
 			</article>
 		)
+
+	const shipping = settings ? getShippingRate(cartItems, settings) : 0
 
 	return (
 		<article id="cart">
@@ -91,12 +94,20 @@ export function CartPage({ media, products }: CartProps) {
 			</Link>
 			<section id="summary">
 				<aside>
+					{!!shipping && (
+						<>
+							<p>Versand:</p>
+							<p>{shipping.toFixed(2)}€</p>
+						</>
+					)}
 					<p>Netto:</p>
 					<p>{cartItemsToNetto(cartItems, 19)}€</p>
 					<p>MwSt.:</p>
 					<p>{cartItemsToTax(cartItems, 19)}€</p>
 					<p>Total:</p>
-					<p>{cartItemsToTotal(cartItems)}€</p>
+					<p>
+						{(cartItemsToTotal(cartItems) + shipping).toFixed(2)}€
+					</p>
 				</aside>
 			</section>
 		</article>

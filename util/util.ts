@@ -1,7 +1,7 @@
 import Stripe from 'stripe'
 
 import { CmsClient } from './cms-client'
-import { CartItem, CustomWPMedia, OrderCreateBody } from './types'
+import { CartItem, CustomWPMedia, OrderCreateBody, WPSettings } from './types'
 
 const cmsClient = new CmsClient()
 
@@ -17,6 +17,10 @@ export async function getAllImages() {
 	return (await cmsClient.media<CustomWPMedia>().find()).filter(
 		Boolean,
 	) as CustomWPMedia[]
+}
+
+export async function getAllSettings(): Promise<WPSettings> {
+	return cmsClient.settings()
 }
 
 export function getActiveClassName({
@@ -46,13 +50,11 @@ function nettoFromTotal(total: number, taxPercent: number) {
 }
 
 export const cartItemsToTotal = (cartItems: CartItem[]) =>
-	cartItems
-		.reduce(
-			(previous: number, current: CartItem) =>
-				previous + current.quantity * current.product.acf.price,
-			0,
-		)
-		.toFixed(2)
+	cartItems.reduce(
+		(previous: number, current: CartItem) =>
+			previous + current.quantity * current.product.acf.price,
+		0,
+	)
 
 export const cartItemsToTax = (cartItems: CartItem[], tax: number) =>
 	cartItems.reduce(
@@ -69,6 +71,11 @@ export const cartItemsToNetto = (cartItems: CartItem[], tax: number) =>
 			current.quantity * nettoFromTotal(current.product.acf.price, tax),
 		0,
 	)
+
+export const getShippingRate = (
+	cartItems: CartItem[],
+	{ freeShippingFrom, shippingRate }: WPSettings,
+) => (cartItemsToTotal(cartItems) < freeShippingFrom ? shippingRate : 0)
 
 const jsonHeader = { 'Content-Type': 'application/json' }
 

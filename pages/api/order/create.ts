@@ -3,7 +3,11 @@ import { Stripe } from 'stripe'
 
 import { STRIPE_SECRET_KEY } from '../../../util/constants'
 import { OrderCreateBody } from '../../../util/types'
-import { getAllImages } from '../../../util/util'
+import {
+	getAllImages,
+	getAllSettings,
+	getShippingRate,
+} from '../../../util/util'
 
 const stripe = new Stripe(STRIPE_SECRET_KEY, {
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -20,7 +24,10 @@ export default async function handler(
 	)
 	const finalBillingAddress = billingAddress ?? shippingAddress
 
-	const media = await getAllImages()
+	const [media, settings] = await Promise.all([
+		getAllImages(),
+		getAllSettings(),
+	])
 
 	const lineItems: Stripe.OrderCreateParams.LineItem[] = cartItems.map(
 		({ quantity, product }) => ({
@@ -87,15 +94,15 @@ export default async function handler(
 					delivery_estimate: {
 						minimum: {
 							unit: 'business_day',
-							value: 5,
+							value: 5, // ToDo: Lieferzeit
 						},
 						maximum: {
 							unit: 'business_day',
-							value: 7,
+							value: 7, // ToDo: Lieferzeit
 						},
 					},
 					fixed_amount: {
-						amount: 450,
+						amount: getShippingRate(cartItems, settings),
 						currency: 'eur',
 					},
 					type: 'fixed_amount',

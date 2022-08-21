@@ -4,7 +4,7 @@ import { CartContext } from './context'
 import { WPProduct } from './types'
 
 export function useCart(products: WPProduct[]) {
-	const { cartItems, setCartItems, clientSecret, setClientSecret } =
+	const { cartItems, setCartItems, clientSecret, setClientSecret, settings } =
 		useContext(CartContext)
 
 	function addToCart(sku: string, quantity: number) {
@@ -54,5 +54,6 @@ export function useCart(products: WPProduct[]) {
 		removeFromCart,
 		clientSecret,
 		setClientSecret,
+		settings,
 	}
 }

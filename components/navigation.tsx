@@ -28,8 +28,8 @@ export function Navigation({
 	setInitialMainHeight: StateSetter<number>
 }) {
 	const [isActive, setIsActive] = useState(false)
-	const { cartItems } = useContext(CartContext)
 	const headerRef = useRef<null | HTMLDivElement>(null)
+	const { cartItems, settings } = useContext(CartContext)
 	const { asPath } = useRouter()
 
 	const closeMenu = () => setIsActive(false)
@@ -113,8 +113,8 @@ export function Navigation({
 							<span>Products</span>
 						</a>
 					</Link>
-					{!!cartItems.length && (
-						<CartButton {...{ cartItems, closeMenu }} />
+					{settings && cartItems.length && (
+						<CartButton {...{ cartItems, closeMenu, settings }} />
 					)}
 				</nav>
 			</header>

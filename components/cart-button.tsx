@@ -1,16 +1,18 @@
 import Link from 'next/link'
 import { MouseEventHandler, useEffect, useState } from 'react'
 
-import { CartItem } from '../util/types'
-import { cartItemsToTotal } from '../util/util'
+import { CartItem, WPSettings } from '../util/types'
+import { cartItemsToTotal, getShippingRate } from '../util/util'
 import { CartIcon } from './icons'
 
 export function CartButton({
 	cartItems,
 	closeMenu,
+	settings,
 }: {
 	cartItems: CartItem[]
 	closeMenu: MouseEventHandler
+	settings: WPSettings
 }) {
 	const [className, setClassName] = useState('cart-total fade-in-bottom')
 
@@ -32,7 +34,11 @@ export function CartButton({
 			<a className="cart" onClick={closeMenu}>
 				<CartIcon />
 				<span className={className}>
-					{cartItemsToTotal(cartItems)}€
+					{(
+						cartItemsToTotal(cartItems) +
+						getShippingRate(cartItems, settings)
+					).toFixed(2)}
+					€
 				</span>
 			</a>
 		</Link>

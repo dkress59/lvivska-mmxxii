@@ -1,6 +1,6 @@
 article#cart {
 	a.checkout {
-		@apply relative z-10 bg-black text-white /* mb-4 */ -mb-14 w-max px-4 py-2 mx-auto;
+		@apply bg-black text-white w-max px-4 py-2 mx-auto;
 	}
 
 	#summary {
@@ -74,6 +74,10 @@ article#cart {
 				@apply text-center;
 			}
 		}
+
+		a.checkout {
+			@apply fixed z-10 bottom-8 left-1/2 -translate-x-1/2;
+		}
 	}
 
 	@screen mobile {
@@ -94,7 +98,7 @@ article#cart {
 		}
 
 		a.checkout {
-			@apply block mx-auto my-8;
+			@apply block absolute left-4 bottom-16 my-8;
 		}
 	}
 }

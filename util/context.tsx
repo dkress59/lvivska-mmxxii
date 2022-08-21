@@ -1,13 +1,15 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react'
 
 import { LOCAL_STORAGE } from './constants'
-import { CartItem, StateSetter } from './types'
+import { CartItem, StateSetter, WPSettings } from './types'
+import { getAllSettings } from './util'
 
 interface CartContextDefinition {
 	cartItems: CartItem[]
 	setCartItems: StateSetter<CartItem[]>
 	clientSecret: string
 	setClientSecret: StateSetter<string>
+	settings: null | WPSettings
 }
 
 function getCartFromLocalStorage(): CartItem[] {
@@ -23,16 +25,21 @@ export const CartContext = React.createContext<CartContextDefinition>({
 	setCartItems: () => null,
 	clientSecret: '',
 	setClientSecret: () => null,
+	settings: null,
 })
 
 export function CartContextProvider({ children }: PropsWithChildren) {
 	const [initialRender, setInitialRender] = useState(true)
 	const [cartItems, setCartItems] = useState<CartItem[]>([])
 	const [clientSecret, setClientSecret] = useState('')
+	const [settings, setSettings] = useState<null | WPSettings>(null)
 
 	useEffect(() => {
 		setCartItems(getCartFromLocalStorage())
 		setInitialRender(false)
+		;(async () => {
+			setSettings(await getAllSettings())
+		})()
 	}, [])
 
 	useEffect(() => {
@@ -43,7 +50,13 @@ export function CartContextProvider({ children }: PropsWithChildren) {
 
 	return (
 		<CartContext.Provider
-			value={{ cartItems, setCartItems, clientSecret, setClientSecret }}
+			value={{
+				cartItems,
+				setCartItems,
+				clientSecret,
+				setClientSecret,
+				settings,
+			}}
 		>
 			{children}
 		</CartContext.Provider>

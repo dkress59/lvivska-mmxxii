@@ -4,6 +4,7 @@ class CustomRest {
 	private static ?self $instance = null;
 
 	public function __construct() {
+		add_action('rest_api_init', [$this, 'modify_cors'], 15);
 		add_action('rest_api_init', [$this, 'register_routes']);
 		self::$instance = $this;
 	}
@@ -11,6 +12,24 @@ class CustomRest {
 	public static function instance(): self {
 		if (!self::$instance) self::$instance = new self();
 		return self::$instance;
+	}
+
+	public function modify_cors() {
+		remove_filter('rest_pre_serve_request', 'rest_send_cors_headers');
+		add_filter('rest_pre_serve_request', [$this, 'custom_headers']);
+	}
+
+	public function custom_headers($value) {
+		$app_url = getenv('NEXT_PUBLIC_URL');
+		$cms_url = getenv('NEXT_PUBLIC_CMS_URL');
+		$origin = $app_url && str_contains($_SERVER['HTTP_ORIGIN'], $app_url)
+			? $app_url
+			: $cms_url;
+		header_remove('Access-Control-Allow-Origin');
+		header('Access-Control-Allow-Origin: ' . $origin);
+		header('Access-Control-Allow-Methods: HEAD, OPTIONS, GET, POST');
+
+		return $value;
 	}
 
 	public function register_routes(): void {

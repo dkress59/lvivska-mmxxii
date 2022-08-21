@@ -98,6 +98,7 @@ export interface ProductProps {
 export interface CartProps {
 	media: CustomWPMedia[]
 	products: WPProduct[]
+	settings: WPSettings
 }
 
 export interface CartItem {
