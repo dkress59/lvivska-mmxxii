@@ -106,7 +106,7 @@ fabric.properties
 
 # Sass
 .sass-cache/
-style.css
+#style.css
 style.css.map
 
 ## NEXT.JS
