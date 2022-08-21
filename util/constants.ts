@@ -1,6 +1,7 @@
 export const NODE_ENV = process.env.NODE_ENV as 'development' | 'production'
 
 export const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL ?? ''
+export const REVALIDATE_TOKEN = process.env.REVALIDATE_TOKEN
 
 export const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY ?? ''
 export const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_URL ?? ''
