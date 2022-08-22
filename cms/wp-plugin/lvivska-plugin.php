@@ -33,6 +33,7 @@ class LvivskaPlugin {
 		add_action('after_setup_theme', [$this, 'theme_setup']);
 		add_action('acf/init', [$this, 'register_acf_groups']);
 		add_action('acf/init', [$this, 'register_store_settings_page']);
+		add_action('save_post', [$this, 'revalidate_frontend_routes'], 10, 3);
 	}
 
 	public static function instance(): self {
@@ -444,5 +445,18 @@ class LvivskaPlugin {
 			));
 			
 			endif;
+	}
+
+	public function revalidate_frontend_routes(int $post_id, WP_Post $post, bool $update) {
+		if ($post->post_type !== ('page' || 'product')) return;
+		if ($post->post_status !== 'publish') return;
+
+		$response = file_get_contents(getenv('NEXT_PUBLIC_URL') . '/api/revalidate?secret=' . getenv('REVALIDATE_TOKEN'));
+		if ($response) {
+			$response = json_decode('response');
+			$success = $response['revalidated'];
+			if ($success) return true;
+		}
+		throw new WP_Error('The revalidation was unsuccessful.');
 	}
 }
