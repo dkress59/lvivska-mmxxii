@@ -448,15 +448,26 @@ class LvivskaPlugin {
 	}
 
 	public function revalidate_frontend_routes(int $post_id, WP_Post $post, bool $update) {
-		if ($post->post_type !== ('page' || 'product')) return;
 		if ($post->post_status !== 'publish') return;
-
-		$response = file_get_contents(getenv('NEXT_PUBLIC_URL') . '/api/revalidate?secret=' . getenv('REVALIDATE_TOKEN'));
+		if ($post->post_type !== 'page' && $post->post_type !== 'product') return;
+		
+		$handle = curl_init();
+		$url = getenv('NEXT_PUBLIC_URL')
+			. '/api/revalidate?secret='
+			. getenv('REVALIDATE_TOKEN');
+		curl_setopt($handle, CURLOPT_URL, $url);
+		curl_setopt($handle, CURLOPT_HEADER, false);
+		curl_setopt($handle, CURLOPT_MAXREDIRS, 10);
+		curl_setopt($handle, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
+		$response = curl_exec($handle);
+		curl_close($handle);
 		if ($response) {
-			$response = json_decode('response');
+			$response = json_decode($response, true);
 			$success = $response['revalidated'];
 			if ($success) return true;
 		}
-		throw new WP_Error('The revalidation was unsuccessful.');
+		return new WP_Error('The revalidation was unsuccessful.');
 	}
 }

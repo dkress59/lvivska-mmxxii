@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
+import { REVALIDATE_TOKEN } from '../../util/constants'
 import { getAllPages, getAllProducts } from '../../util/util'
 
 export default async function handler(
@@ -7,8 +8,10 @@ export default async function handler(
 	res: NextApiResponse,
 ) {
 	// Check for secret to confirm this is a valid request
-	if (req.query.secret !== process.env.REVALIDATE_TOKEN) {
-		return res.status(401).json({ message: 'Invalid token' })
+	if (req.query.secret !== REVALIDATE_TOKEN) {
+		return res
+			.status(401)
+			.json({ revalidated: false, message: 'Invalid token' })
 	}
 
 	try {

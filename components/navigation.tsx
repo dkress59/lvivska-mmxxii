@@ -113,7 +113,7 @@ export function Navigation({
 							<span>Products</span>
 						</a>
 					</Link>
-					{settings && cartItems.length && (
+					{!!settings && !!cartItems.length && (
 						<CartButton {...{ cartItems, closeMenu, settings }} />
 					)}
 				</nav>
