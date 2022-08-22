@@ -1,3 +1,5 @@
+import Head from 'next/head'
+
 import { useCart } from '../util/hooks'
 import { ProductProps } from '../util/types'
 import { getImgSrcSet } from '../util/util'
@@ -17,6 +19,7 @@ export function WpProduct({
 			weight,
 			sku,
 		},
+		yoast_head_json,
 	},
 	products,
 }: ProductProps) {
@@ -28,6 +31,39 @@ export function WpProduct({
 
 	return (
 		<>
+			{!!yoast_head_json && (
+				<Head>
+					<title>{yoast_head_json.title}</title>
+					<meta
+						property="og:title"
+						content={yoast_head_json.og_title}
+					/>
+					<meta
+						property="og:description"
+						content={yoast_head_json.og_description}
+					/>
+					{yoast_head_json.og_image?.map(img => (
+						<meta
+							key={img.url}
+							property="og:image"
+							content={img.url}
+						/>
+					))}
+					<meta
+						property="og:type"
+						content={yoast_head_json.og_type}
+					/>
+					<meta
+						property="og:locale"
+						content={yoast_head_json.og_locale}
+					/>
+					<meta
+						property="og:site_name"
+						content={yoast_head_json.og_site_name}
+					/>
+					<meta property="og:url" content={yoast_head_json.og_url} />
+				</Head>
+			)}
 			{!!featuredMedia && (
 				<figure className="product">
 					<img
