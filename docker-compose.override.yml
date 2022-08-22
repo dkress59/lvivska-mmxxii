@@ -4,7 +4,7 @@ services:
     build:
       target: development
     volumes:
-      - ./.yarn:/lvivska/.yarn
+      #- ./.yarn:/lvivska/.yarn # M1 vs linux!
       - ./components:/lvivska/components
       - ./pages:/lvivska/pages
       - ./public:/lvivska/public

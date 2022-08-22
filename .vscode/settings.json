@@ -13,5 +13,6 @@
 	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"yaml.schemas": {
 		"https://json.schemastore.org/github-workflow.json": "file:///home/dkress/Web/lvivska-mmxxii/.github/workflows/deploy.yml"
-	}
+	},
+	"prettier.prettierPath": ".yarn/sdks/prettier/index.js"
 }
