@@ -36,7 +36,7 @@ jobs:
   deploy-cms:
     runs-on: ubuntu-latest
     env:
-      ACF_PRO_VERSION: 6.0.0-RC1
+      ACF_PRO_VERSION: '6.0.0-RC1'
     steps:
       - uses: actions/checkout@v2
       - name: Create SSH key
