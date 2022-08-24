@@ -36,7 +36,7 @@ jobs:
   deploy-cms:
     runs-on: ubuntu-latest
     env:
-      ACF_VERSION: 6.0.0-RC1
+      ACF_PRO_VERSION: 6.0.0-RC1
     steps:
       - uses: actions/checkout@v2
       - name: Create SSH key
@@ -54,5 +54,6 @@ jobs:
             sed "s/ACF_PRO_VERSION/$ACF_VERSION/g" composer.json
             sed "s/ACF_PRO_LICENSE/${{ secrets.ACF_PRO_LICENSE }}/g" composer.json
             composer install
+            rm composer.json
           EOT
  
