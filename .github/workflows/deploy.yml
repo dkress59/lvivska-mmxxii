@@ -57,5 +57,6 @@ jobs:
             sed -i 's/ACF_PRO_LICENSE/${{ secrets.ACF_PRO_LICENSE }}/g' composer.json
             composer install
             rm composer.json
+            rm composer.lock
           EOT
  
