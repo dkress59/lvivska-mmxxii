@@ -26,6 +26,7 @@ jobs:
       - name: Deploy to server
         run: |
           cat <<'EOT' | ssh ${{ secrets.HOST_USER }}@${{ secrets.HOST_IP }}
+            set -ex
             cd ${{ secrets.DIRECTORY }}
             git pull
             yarn
@@ -50,8 +51,9 @@ jobs:
           scp -r ./cms/wp-theme/* ${{ secrets.CMS_HOST_USER }}@${{ secrets.CMS_HOST_IP }}:${{ secrets.CMS_DIRECTORY }}/wp-content/themes/lvivska-mmxxii-theme
           scp -r ./cms/conf/composer.json ${{ secrets.CMS_HOST_USER }}@${{ secrets.CMS_HOST_IP }}:${{ secrets.CMS_DIRECTORY }}
           cat <<'EOT' | ssh ${{ secrets.CMS_HOST_USER }}@${{ secrets.CMS_HOST_IP }}
+            set -ex
             cd ${{ secrets.CMS_DIRECTORY }}
-            sed 's/ACF_PRO_VERSION/'$ACF_PRO_VERSION'/g' composer.json
+            sed "s/ACF_PRO_VERSION/$ACF_PRO_VERSION/g" composer.json
             cat composer.json
             sed "s/ACF_PRO_LICENSE/${{ secrets.ACF_PRO_LICENSE }}/g" composer.json
             composer install
