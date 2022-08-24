@@ -53,8 +53,8 @@ jobs:
           cat <<'EOT' | ssh ${{ secrets.CMS_HOST_USER }}@${{ secrets.CMS_HOST_IP }}
             set -ex
             cd ${{ secrets.CMS_DIRECTORY }}
-            sed -e 's/ACF_PRO_VERSION/'"${{ env.ACF_PRO_VERSION }}"'/g' composer.json
-            sed -e 's/ACF_PRO_LICENSE/'"${{ secrets.ACF_PRO_LICENSE }}"'/g' composer.json
+            sed -i 's/ACF_PRO_VERSION/${{ env.ACF_PRO_VERSION }}/g' composer.json
+            sed -i 's/ACF_PRO_LICENSE/${{ secrets.ACF_PRO_LICENSE }}/g' composer.json
             composer install
             rm composer.json
           EOT
