@@ -26,10 +26,29 @@ jobs:
       - name: Deploy to server
         run: |
           cat <<'EOT' | ssh ${{ secrets.HOST_USER }}@${{ secrets.HOST_IP }}
-          cd ${{ secrets.DIRECTORY }}
-          git pull
-          yarn
-          yarn build
-          PORT=$LV_PORT yarn start &
+            cd ${{ secrets.DIRECTORY }}
+            git pull
+            yarn
+            yarn build
+            (PORT=$LV_PORT yarn start&)
           EOT
 
+  deploy-cms:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create SSH key
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_ed25519
+          echo "${{ secrets.CMS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ secrets.CMS_HOST_IP }} > ~/.ssh/known_hosts
+      - name: Deploy to server
+        run: |
+          scp -r ./cms/wp-plugin/* ${{ secrets.CMS_HOST_USER }}@${{ secrets.CMS_HOST_IP }}:${{ secrets.CMS_DIRECTORY }}/wp-content/plugins/lvivska-mmxxii-plugin
+          scp -r ./cms/wp-theme/* ${{ secrets.CMS_HOST_USER }}@${{ secrets.CMS_HOST_IP }}:${{ secrets.CMS_DIRECTORY }}/wp-content/themes/lvivska-mmxxii-theme
+          scp -r ./cms/conf/composer.json ${{ secrets.CMS_HOST_USER }}@${{ secrets.CMS_HOST_IP }}:${{ secrets.CMS_DIRECTORY }}
+          cat <<'EOT' | ssh ${{ secrets.CMS_HOST_USER }}@${{ secrets.CMS_HOST_IP }}
+            cd ${{ secrets.CMS_DIRECTORY }}
+            sed "s/ACF_PRO_LICENSE/${{ secrets.ACF_PRO_LICENSE }}/" composer.json
+            composer install
+          EOT
