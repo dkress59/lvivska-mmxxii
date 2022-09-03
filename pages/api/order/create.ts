@@ -95,7 +95,7 @@ export default async function handler(
 						},
 					},
 					fixed_amount: {
-						amount: getShippingRate(cartItems, settings),
+						amount: getShippingRate(cartItems, settings) * 100,
 						currency: 'eur',
 					},
 					type: 'fixed_amount',
