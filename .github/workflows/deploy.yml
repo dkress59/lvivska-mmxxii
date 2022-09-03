@@ -27,10 +27,12 @@ jobs:
         run: |
           cat <<'EOT' | ssh ${{ secrets.HOST_USER }}@${{ secrets.HOST_IP }}
             set -ex
+            lsof | grep '${{ secrets.DIRECTORY }}' | awk '{print $2}' | xargs kill
             cd ${{ secrets.DIRECTORY }}
             git pull
             yarn
             yarn build
+            yarn start
           EOT
 
   deploy-cms:
