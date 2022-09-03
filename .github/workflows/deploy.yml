@@ -32,7 +32,7 @@ jobs:
             git pull
             yarn
             yarn build
-            yarn start
+            (PORT=$LV_PORT yarn start &)
           EOT
 
   deploy-cms:
